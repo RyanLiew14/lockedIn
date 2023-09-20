@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { LoginAPI } from "../api/AuthAPI";
+import { SignUpAPI } from "../api/AuthAPI";
 import { Link } from "react-router-dom";
 
-export default function LoginComponent() {
+export default function RegisterComponent() {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
-  const login = () => {
-    const res = LoginAPI(credentials.email, credentials.password);
+  const signUp = () => {
+    const res = SignUpAPI(credentials.email, credentials.password);
     console.log(res);
   };
   return (
@@ -28,17 +28,17 @@ export default function LoginComponent() {
         ></input>
       </div>
 
-      <div className="flex flex-col justify-center gap-2 w-72">
+      <div className="flex flex-col justify-center gap-2">
         <button
-          onClick={login}
-          className="bg-gray-100 text-black p-2 rounded-lg"
+          onClick={signUp}
+          className="bg-gray-100 text-black p-2 rounded-lg w-72"
         >
-          Log-in
+          Join
         </button>
-        <p className="flex gap-1 justify-center">
-          New to LockedIn?{" "}
-          <Link to="/register" className="hover:text-blue-500">
-            Start here
+        <p>
+          Already a member of LockedIn?{" "}
+          <Link to="/login" className="hover:text-blue-500">
+            Sign in{" "}
           </Link>
         </p>
       </div>
