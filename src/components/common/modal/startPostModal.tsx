@@ -50,7 +50,7 @@ export default function StartPostModal({
         onCancel={() => setModalOpenState(false)}
       >
         <textarea
-          className="text-gray-400 bg-transparent w-full outline-none"
+          className="text-gray-600 bg-transparent w-full outline-none rounded-lg"
           placeholder={"What do you want to talk about?"}
           onChange={(event) => {
             setPostDetails({ ...postDetails, blog: event.target.value });

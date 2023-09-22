@@ -3,7 +3,6 @@ import { firestore } from "../firebaseConfig";
 import { addDoc, onSnapshot, collection } from "firebase/firestore";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
-import { UserCredentialInterface } from "../components/registerComponent";
 
 const dbRefPosts = collection(firestore, "posts");
 const dbRefUsers = collection(firestore, "users");

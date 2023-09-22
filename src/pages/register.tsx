@@ -4,9 +4,9 @@ import { ToastContainer } from "react-toastify";
 
 export default function Register() {
   return (
-    <>
+    <div className="flex bg-gray-100 dark:bg-gray-900 h-screen items-center justify-center">
       <ToastContainer></ToastContainer>
-      <div className="flex-col space-y-12 mt-64">
+      <div className="flex-col space-y-12">
         <h1 className="text-center text-4xl font-semibold font-sans">
           Turn your dream into a reality
         </h1>
@@ -14,6 +14,6 @@ export default function Register() {
           <RegisterComponent />
         </div>
       </div>
-    </>
+    </div>
   );
 }

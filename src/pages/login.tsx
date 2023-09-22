@@ -21,9 +21,9 @@ export default function Login() {
   return loading ? (
     <Loader></Loader>
   ) : (
-    <>
+    <div className="flex bg-gray-100 dark:bg-gray-900 h-screen items-center justify-center">
       <ToastContainer />
-      <div className="flex-col space-y-12 mt-64">
+      <div className="flex-col space-y-12 ">
         <h1 className="text-center text-6xl font-semibold font-sans">
           LockedIn
         </h1>
@@ -34,6 +34,6 @@ export default function Login() {
           <LoginComponent />
         </div>
       </div>
-    </>
+    </div>
   );
 }

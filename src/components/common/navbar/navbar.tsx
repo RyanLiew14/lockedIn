@@ -16,7 +16,7 @@ export default function Navbar() {
     navigate(route);
   };
   return (
-    <div className="flex flex-row bg-blue-950 p-3 gap-4 lg:gap-12 items-center">
+    <div className="flex flex-row bg-white dark:bg-gray-800 p-3 gap-4 lg:gap-12 items-center">
       <AiFillLinkedin
         onClick={() => {
           goToRoute("/home");
@@ -26,7 +26,7 @@ export default function Navbar() {
       <div className="flex flex-row gap-4 items-center">
         <AiOutlineSearch size={25}></AiOutlineSearch>
         <input
-          className="p-1 w-48 lg:block hidden rounded-md"
+          className="p-1 w-48 lg:block hidden rounded-md text-black"
           placeholder="search"
         ></input>
       </div>

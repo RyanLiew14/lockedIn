@@ -23,9 +23,9 @@ export default function Home() {
   return loading ? (
     <Loader></Loader>
   ) : (
-    <>
+    <div className="bg-gray-100 dark:bg-gray-900 h-screen">
       <ToastContainer />
       <HomeComponent />
-    </>
+    </div>
   );
 }

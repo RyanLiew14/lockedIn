@@ -36,7 +36,7 @@ export default function RegisterComponent() {
   };
   return (
     <div>
-      <div className="flex flex-col space-y-6 mb-8 w-72">
+      <div className="flex flex-col space-y-6 mb-8 w-72 text-black">
         <input
           onChange={(event) =>
             setCredentials({ ...credentials, email: event.target.value })
@@ -65,7 +65,6 @@ export default function RegisterComponent() {
           }
           placeholder="last name"
           className="p-3"
-          type="password"
         ></input>
         <input
           onChange={(event) =>
@@ -73,20 +72,19 @@ export default function RegisterComponent() {
           }
           placeholder="alias (optional)"
           className="p-3"
-          type="password"
         ></input>
       </div>
 
       <div className="flex flex-col justify-center gap-2">
         <button
           onClick={signUp}
-          className="bg-gray-100 text-black p-2 rounded-lg w-72"
+          className="bg-gray-100 text-black p-2 rounded-lg w-72 hover:bg-teal-500"
         >
           Join
         </button>
-        <p>
+        <p className="text-gray-300">
           Already a member of LockedIn?{" "}
-          <Link to="/login" className="hover:text-blue-500">
+          <Link to="/login" className="hover:text-teal-500">
             Sign in{" "}
           </Link>
         </p>

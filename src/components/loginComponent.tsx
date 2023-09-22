@@ -18,7 +18,7 @@ export default function LoginComponent() {
   };
   return (
     <div>
-      <div className="flex flex-col space-y-6 mb-8 w-72">
+      <div className="flex flex-col space-y-6 mb-8 w-72 text-black">
         <input
           onChange={(event) =>
             setCredentials({ ...credentials, email: event.target.value })
@@ -39,13 +39,13 @@ export default function LoginComponent() {
       <div className="flex flex-col justify-center gap-2 w-72">
         <button
           onClick={login}
-          className="bg-gray-100 text-black p-2 rounded-lg"
+          className="bg-gray-100 text-black p-2 rounded-lg hover:bg-teal-500"
         >
           Log-in
         </button>
         <p className="flex gap-1 justify-center">
           New to LockedIn?{" "}
-          <Link to="/register" className="hover:text-blue-500">
+          <Link to="/register" className="hover:text-teal-500">
             Start here
           </Link>
         </p>
