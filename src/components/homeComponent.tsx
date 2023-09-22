@@ -1,6 +1,5 @@
 import React from "react";
 import Navbar from "./common/navbar/navbar";
-import Post from "./common/post/personalPost";
 import PersonalPost from "./common/post/personalPost";
 import StartAPost from "./common/post/startAPost";
 

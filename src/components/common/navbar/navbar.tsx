@@ -8,7 +8,7 @@ import {
 } from "react-icons/ai";
 import { BsFillPeopleFill, BsFillPersonFill } from "react-icons/bs";
 import { FaGamepad } from "react-icons/fa";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const navigate = useNavigate();

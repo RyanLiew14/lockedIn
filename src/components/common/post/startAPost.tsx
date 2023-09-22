@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Button, Modal } from "antd";
 import StartPostModal from "../modal/startPostModal";
 
 export default function StartAPost() {
