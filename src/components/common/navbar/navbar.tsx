@@ -16,7 +16,7 @@ export default function Navbar() {
     navigate(route);
   };
   return (
-    <div className="flex flex-row bg-blue-950 p-3 gap-12 items-center">
+    <div className="flex flex-row bg-blue-950 p-3 gap-4 lg:gap-12 items-center">
       <AiFillLinkedin
         onClick={() => {
           goToRoute("/home");
@@ -26,7 +26,7 @@ export default function Navbar() {
       <div className="flex flex-row gap-4 items-center">
         <AiOutlineSearch size={25}></AiOutlineSearch>
         <input
-          className="p-1 w-48 lg:flex hidden rounded-md"
+          className="p-1 w-48 lg:block hidden rounded-md"
           placeholder="search"
         ></input>
       </div>
@@ -36,7 +36,7 @@ export default function Navbar() {
         className="flex flex-col items-center hover:text-gray-400 cursor-pointer"
       >
         <AiFillHome size={25}></AiFillHome>
-        <div className="text-xs">Home</div>
+        <div className="text-xs lg:block hidden">Home</div>
       </div>
 
       <div
@@ -46,7 +46,7 @@ export default function Navbar() {
         className="flex flex-col items-center hover:text-gray-400 cursor-pointer"
       >
         <BsFillPeopleFill size={25}></BsFillPeopleFill>
-        <div className="text-xs">My Network</div>
+        <div className="text-xs hidden lg:block">My Network</div>
       </div>
 
       <div
@@ -56,7 +56,7 @@ export default function Navbar() {
         className="flex flex-col items-center hover:text-gray-400 cursor-pointer"
       >
         <FaGamepad size={25}></FaGamepad>
-        <div className="text-xs">Opportunities</div>
+        <div className="text-xs hidden lg:block">Opportunities</div>
       </div>
 
       <div
@@ -66,7 +66,7 @@ export default function Navbar() {
         className="flex flex-col items-center hover:text-gray-400 cursor-pointer"
       >
         <AiFillMessage size={25}></AiFillMessage>
-        <div className="text-xs">Message</div>
+        <div className="text-xs hidden lg:block">Message</div>
       </div>
 
       <div
@@ -76,7 +76,7 @@ export default function Navbar() {
         className="flex flex-col items-center hover:text-gray-400 cursor-pointer "
       >
         <AiFillBell size={25}></AiFillBell>
-        <div className="text-xs">Notifications</div>
+        <div className="text-xs hidden lg:block">Notifications</div>
       </div>
       <div
         onClick={() => {
@@ -85,7 +85,7 @@ export default function Navbar() {
         className="flex flex-col items-center hover:text-gray-400 cursor-pointer "
       >
         <BsFillPersonFill size={25}></BsFillPersonFill>
-        <div className="text-xs">Profile</div>
+        <div className="text-xs hidden lg:block">Profile</div>
       </div>
     </div>
   );

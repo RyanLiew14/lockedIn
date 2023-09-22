@@ -1,13 +1,11 @@
-import React, { useMemo, useState, SetStateAction } from "react";
+import React, { useMemo, useState } from "react";
 import Navbar from "./common/navbar/navbar";
 import PersonalPost from "./common/post/personalPost";
 import StartAPost from "./common/post/startAPost";
 import {
-  getPosts,
   getPostsTest,
   returnedPostDetailsInterface,
 } from "../api/firestoreAPI";
-import { postDetailsInterface } from "./common/modal/startPostModal";
 import Post from "./common/post/post";
 
 export default function HomeComponent() {
@@ -22,7 +20,6 @@ export default function HomeComponent() {
       <PersonalPost></PersonalPost>
       <StartAPost></StartAPost>
       {allPosts?.map((post) => {
-        console.log(allPosts);
         return <Post id={post.id} blog={post.blog}></Post>;
       })}
       hello

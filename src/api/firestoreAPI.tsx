@@ -1,12 +1,6 @@
 import { postDetailsInterface } from "../components/common/modal/startPostModal";
 import { firestore } from "../firebaseConfig";
-import {
-  addDoc,
-  onSnapshot,
-  collection,
-  auth,
-  Unsubscribe,
-} from "firebase/firestore";
+import { addDoc, onSnapshot, collection } from "firebase/firestore";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
