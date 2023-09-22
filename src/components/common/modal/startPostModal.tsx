@@ -3,6 +3,7 @@ import { Modal } from "antd";
 import { postData } from "../../../api/firestoreAPI";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getCurrentTimeStamp } from "../../../helper/useMoment";
 
 interface StartPostModalProps {
   modalOpenState: boolean;
@@ -11,6 +12,7 @@ interface StartPostModalProps {
 
 export interface postDetailsInterface {
   blog: string;
+  postedAt: string;
 }
 
 export default function StartPostModal({
@@ -19,10 +21,11 @@ export default function StartPostModal({
 }: StartPostModalProps) {
   const [postDetails, setPostDetails] = useState({ blog: "" });
   const sendPost = async (details: postDetailsInterface) => {
-    await postData(details);
+    await postData({ ...details });
     await setModalOpenState(false);
     await setPostDetails({ ...postDetails, blog: "" });
   };
+
   return (
     <>
       <ToastContainer></ToastContainer>
@@ -37,7 +40,7 @@ export default function StartPostModal({
         cancelButtonProps={{ type: "link" }}
         okText={"Post"}
         onOk={() => {
-          sendPost(postDetails);
+          sendPost({ ...postDetails, postedAt: getCurrentTimeStamp("LLL") });
         }}
         onCancel={() => setModalOpenState(false)}
       >

@@ -19,26 +19,21 @@ export const postData = (data: postDetailsInterface) => {
 export interface returnedPostDetailsInterface {
   id: string;
   blog: string;
+  postedAt: string;
 }
 
-export const getPosts = (): returnedPostDetailsInterface[] => {
-  const posts: returnedPostDetailsInterface[] = [];
-  onSnapshot(dbRef, (response) => {
-    response.docs.map((doc) => {
-      posts.push({ ...doc.data(), id: doc.id, blog: doc.data().blog });
-    });
-  });
-
-  return posts;
-};
-
-export const getPostsTest = (
+export const getPosts = (
   setAllPosts: (arr: returnedPostDetailsInterface[]) => void
 ) => {
   onSnapshot(dbRef, (response) => {
     setAllPosts(
       response.docs.map((doc) => {
-        return { ...doc.data(), id: doc.id, blog: doc.data().blog };
+        return {
+          ...doc.data(),
+          id: doc.id,
+          blog: doc.data().blog,
+          postedAt: doc.data().postedAt,
+        };
       })
     );
   });
