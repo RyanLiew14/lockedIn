@@ -13,6 +13,7 @@ interface StartPostModalProps {
 export interface postDetailsInterface {
   blog: string;
   postedAt: string;
+  author: string | null;
 }
 
 export default function StartPostModal({
@@ -40,7 +41,11 @@ export default function StartPostModal({
         cancelButtonProps={{ type: "link" }}
         okText={"Post"}
         onOk={() => {
-          sendPost({ ...postDetails, postedAt: getCurrentTimeStamp("LLL") });
+          sendPost({
+            ...postDetails,
+            postedAt: getCurrentTimeStamp("LLL"),
+            author: localStorage.getItem("userEmail"),
+          });
         }}
         onCancel={() => setModalOpenState(false)}
       >

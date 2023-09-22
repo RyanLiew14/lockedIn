@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import { LoginAPI } from "../api/AuthAPI";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function LoginComponent() {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
-  const login = () => {
-    const res = LoginAPI(credentials.email, credentials.password);
-    console.log(res);
+  const navigate = useNavigate();
+  const login = async () => {
+    try {
+      const res = await LoginAPI(credentials.email, credentials.password);
+      toast.success("Signed in to LockedIn");
+      localStorage.setItem("userEmail", res?.user?.email);
+      navigate("/home");
+    } catch (err) {
+      toast.error("Credentials do not exist");
+    }
   };
   return (
     <div>

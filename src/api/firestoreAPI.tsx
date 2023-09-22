@@ -3,11 +3,13 @@ import { firestore } from "../firebaseConfig";
 import { addDoc, onSnapshot, collection } from "firebase/firestore";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
+import { UserCredentialInterface } from "../components/registerComponent";
 
-const dbRef = collection(firestore, "posts");
+const dbRefPosts = collection(firestore, "posts");
+const dbRefUsers = collection(firestore, "users");
 
 export const postData = (data: postDetailsInterface) => {
-  addDoc(dbRef, data)
+  addDoc(dbRefPosts, data)
     .then(() => {
       toast.success("Post has been added!");
     })
@@ -25,7 +27,7 @@ export interface returnedPostDetailsInterface {
 export const getPosts = (
   setAllPosts: (arr: returnedPostDetailsInterface[]) => void
 ) => {
-  onSnapshot(dbRef, (response) => {
+  onSnapshot(dbRefPosts, (response) => {
     setAllPosts(
       response.docs.map((doc) => {
         return {
@@ -37,4 +39,19 @@ export const getPosts = (
       })
     );
   });
+};
+
+export interface InsertUserInterface {
+  email: string;
+  firstName: string;
+  lastName: string;
+  alias: string | null;
+}
+
+export const insertUser = (credentials: InsertUserInterface) => {
+  addDoc(dbRefUsers, credentials)
+    .then(() => {})
+    .catch((err) => {
+      return err;
+    });
 };

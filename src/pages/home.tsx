@@ -5,6 +5,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/common/loader";
+import { ToastContainer } from "react-toastify";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -19,5 +20,12 @@ export default function Home() {
     });
   }, [navigate]);
 
-  return loading ? <Loader></Loader> : <HomeComponent />;
+  return loading ? (
+    <Loader></Loader>
+  ) : (
+    <>
+      <ToastContainer />
+      <HomeComponent />
+    </>
+  );
 }

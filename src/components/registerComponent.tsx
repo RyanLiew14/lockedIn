@@ -1,12 +1,38 @@
 import React, { useState } from "react";
 import { SignUpAPI } from "../api/AuthAPI";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { insertUser } from "../api/firestoreAPI";
+
+export interface UserCredentialInterface {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  alias: string | null;
+}
 
 export default function RegisterComponent() {
-  const [credentials, setCredentials] = useState({ email: "", password: "" });
-  const signUp = () => {
-    const res = SignUpAPI(credentials.email, credentials.password);
+  const navigate = useNavigate();
+  const [credentials, setCredentials] = useState<UserCredentialInterface>({
+    email: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    alias: "",
+  });
+  const signUp = async () => {
+    const res = await SignUpAPI(credentials.email, credentials.password);
+    await insertUser({
+      email: credentials.email,
+      firstName: credentials.firstName,
+      lastName: credentials.lastName,
+      alias: credentials.alias,
+    });
+    toast.success("Signed in to LockedIn");
     console.log(res);
+    localStorage.setItem("userEmail", res?.user?.email);
+    navigate("/home");
   };
   return (
     <div>
@@ -23,6 +49,29 @@ export default function RegisterComponent() {
             setCredentials({ ...credentials, password: event.target.value })
           }
           placeholder="password"
+          className="p-3"
+          type="password"
+        ></input>
+        <input
+          onChange={(event) =>
+            setCredentials({ ...credentials, firstName: event.target.value })
+          }
+          placeholder="first name"
+          className="p-3"
+        ></input>
+        <input
+          onChange={(event) =>
+            setCredentials({ ...credentials, lastName: event.target.value })
+          }
+          placeholder="last name"
+          className="p-3"
+          type="password"
+        ></input>
+        <input
+          onChange={(event) =>
+            setCredentials({ ...credentials, alias: event.target.value })
+          }
+          placeholder="alias (optional)"
           className="p-3"
           type="password"
         ></input>
