@@ -1,20 +1,9 @@
-import React from "react";
-import { onLogout } from "../api/AuthAPI";
-import { useNavigate } from "react-router-dom";
+import ProfileComponent from "../components/profileComponent";
 
 export default function Profile() {
-  const navigate = useNavigate();
   return (
     <div>
-      P
-      <button
-        onClick={() => {
-          navigate("/login");
-          onLogout();
-        }}
-      >
-        LogOut
-      </button>
+      <ProfileComponent />
     </div>
   );
 }

@@ -1,9 +1,9 @@
 import React, { useMemo, useState } from "react";
 import Navbar from "./common/navbar/navbar";
-import PersonalPost from "./common/post/personalPost";
-import StartAPost from "./common/post/startAPost";
+import PersonalPost from "./common/cards/personalCard";
+import StartAPost from "./common/cards/startAPost";
 import { getPosts, returnedPostDetailsInterface } from "../api/firestoreAPI";
-import Post from "./common/post/post";
+import Post from "./common/cards/postCard";
 
 export default function HomeComponent() {
   const [allPosts, setAllPosts] = useState<returnedPostDetailsInterface[]>();

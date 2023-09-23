@@ -1,16 +1,28 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { LoginAPI } from "../api/AuthAPI";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { getUserByEmail, getUserInterface } from "../api/firestoreAPI";
 
 export default function LoginComponent() {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const navigate = useNavigate();
+  const email = localStorage.getItem("userEmail");
+
+  const [user, setUserInfo] = useState<getUserInterface>();
+  useMemo(() => {
+    getUserByEmail(email, setUserInfo);
+  }, [email]);
   const login = async () => {
     try {
       const res = await LoginAPI(credentials.email, credentials.password);
+      console.log(res);
       toast.success("Signed in to LockedIn");
       localStorage.setItem("userEmail", res?.user?.email);
+      localStorage.setItem("firstName", user?.firstName ?? "");
+      localStorage.setItem("lastName", user?.lastName ?? "");
+      localStorage.setItem("alias", user?.alias ?? "");
+      localStorage.setItem("id", user?.id ?? "");
       navigate("/home");
     } catch (err) {
       toast.error("Credentials do not exist");

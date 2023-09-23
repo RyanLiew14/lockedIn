@@ -54,3 +54,31 @@ export const insertUser = (credentials: InsertUserInterface) => {
       return err;
     });
 };
+
+export interface getUserInterface {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  alias: string | null;
+}
+
+export const getUserByEmail = (
+  email: string | null,
+  setUserInfo: (details: getUserInterface) => void
+) => {
+  onSnapshot(dbRefUsers, (response) => {
+    response.docs.forEach((doc) => {
+      if (doc.data().email === email) {
+        setUserInfo({
+          id: doc.id,
+          email: doc.data().email,
+          firstName: doc.data().firstName,
+          lastName: doc.data().lastName,
+          alias: doc.data().alias,
+          ...doc.data(),
+        });
+      }
+    });
+  });
+};

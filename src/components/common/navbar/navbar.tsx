@@ -1,4 +1,3 @@
-import React from "react";
 import {
   AiFillHome,
   AiOutlineSearch,
@@ -15,6 +14,7 @@ export default function Navbar() {
   const goToRoute = (route: string) => {
     navigate(route);
   };
+
   return (
     <div className="flex flex-row bg-white dark:bg-gray-800 p-3 gap-4 lg:gap-12 items-center">
       <AiFillLinkedin
@@ -80,7 +80,7 @@ export default function Navbar() {
       </div>
       <div
         onClick={() => {
-          goToRoute("/profile");
+          goToRoute(`/profile/${localStorage.getItem("id")}`);
         }}
         className="flex flex-col items-center hover:text-gray-400 cursor-pointer "
       >
