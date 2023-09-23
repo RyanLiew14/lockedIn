@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Modal } from "antd";
 import { postData } from "../../../api/firestoreAPI";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { getCurrentTimeStamp } from "../../../helper/useMoment";
 
 interface StartPostModalProps {
@@ -29,7 +27,6 @@ export default function StartPostModal({
 
   return (
     <>
-      <ToastContainer></ToastContainer>
       <Modal
         title="Create a Post"
         centered
