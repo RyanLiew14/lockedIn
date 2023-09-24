@@ -82,3 +82,23 @@ export const getUserByEmail = (
     });
   });
 };
+
+export const getUserById = (
+  id: string | null,
+  setUserInfo: (details: getUserInterface) => void
+) => {
+  onSnapshot(dbRefUsers, (response) => {
+    response.docs.forEach((doc) => {
+      if (doc.id === id) {
+        setUserInfo({
+          id: doc.id,
+          email: doc.data().email,
+          firstName: doc.data().firstName,
+          lastName: doc.data().lastName,
+          alias: doc.data().alias,
+          ...doc.data(),
+        });
+      }
+    });
+  });
+};

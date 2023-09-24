@@ -1,33 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Navbar from "./common/navbar/navbar";
 import { useNavigate, useParams } from "react-router-dom";
 import { onLogout } from "../api/AuthAPI";
+import ProfileCard from "./common/cards/profileCard";
+import AchievementsCard from "./common/cards/achievementsCard";
+import ExperienceCard from "./common/cards/experienceCard";
+import HighlightsCard from "./common/cards/highlightsCard";
+import { getUserById, getUserInterface } from "../api/firestoreAPI";
+import Loader from "./common/loader";
 
 export default function ProfileComponent() {
   const navigate = useNavigate();
-  // const [firstName, setFirstName] = useState<string | null>("");
-  // const [lastName, setLastName] = useState<string | null>("");
-  // const [email, setEmail] = useState<string | null>("");
+  const [userDetails, setUserDetails] = useState<getUserInterface>();
 
   const { id } = useParams();
-  let firstName;
-  let lastName;
-  let userEmail;
 
-  if (id === localStorage.getItem("id")) {
-    firstName = localStorage.getItem("firstName");
-    lastName = localStorage.getItem("lastName");
-    userEmail = localStorage.getItem("userEmail");
-  } else {
-    //TODO: query db by id and get user by ID
-  }
+  useMemo(() => {
+    getUserById(id ?? null, setUserDetails);
+  }, [id]);
 
-  return (
+  const firstName = userDetails?.firstName;
+  const lastName = userDetails?.lastName;
+  const userEmail = userDetails?.email;
+
+  return userDetails ? (
     <div className="flex flex-col">
       <Navbar></Navbar>
-      <>
-        {firstName} , {lastName} , {userEmail}
-      </>
+      <ProfileCard fName={firstName} lName={lastName} email={userEmail} />
+      <AchievementsCard />
+      <ExperienceCard />
+      <HighlightsCard />
       <button
         onClick={() => {
           navigate("/login");
@@ -37,5 +39,7 @@ export default function ProfileComponent() {
         LogOut
       </button>
     </div>
+  ) : (
+    <Loader />
   );
 }
