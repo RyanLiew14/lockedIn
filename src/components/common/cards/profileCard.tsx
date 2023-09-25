@@ -42,7 +42,7 @@ export default function ProfileCard({
         </div>
 
         <div className="mt-4 font-sans font-semibold">
-          {firstName} {lastName}
+          {firstName} {alias ? `"${alias}"` : ""} {lastName}
           {" | "}
           {userEmail}
         </div>

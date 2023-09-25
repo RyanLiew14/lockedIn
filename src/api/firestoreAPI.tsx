@@ -9,6 +9,7 @@ import {
 } from "firebase/firestore";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
+import { AchievementInterface } from "../components/common/cards/achievementsCard";
 
 const dbRefPosts = collection(firestore, "posts");
 const dbRefUsers = collection(firestore, "users");
@@ -69,7 +70,10 @@ export interface EditUserInterface {
   alias: string | null | undefined;
 }
 
-export const editUser = async (info: EditUserInterface, id: string) => {
+export const editUser = async (
+  info: AchievementInterface | EditUserInterface,
+  id: string
+) => {
   const userDocumentRef = doc(firestore, "users", id);
   await updateDoc(userDocumentRef, { ...info });
 };
