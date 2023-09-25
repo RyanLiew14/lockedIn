@@ -23,17 +23,21 @@ export default function RegisterComponent() {
   });
   const signUp = async () => {
     const res = await SignUpAPI(credentials.email, credentials.password);
-    await insertUser({
+    const id = await insertUser({
       email: credentials.email,
       firstName: credentials.firstName,
       lastName: credentials.lastName,
       alias: credentials.alias,
     });
+
+    console.log(id);
+
     toast.success("Signed in to LockedIn");
-    console.log(res);
     localStorage.setItem("userEmail", res?.user?.email);
+    localStorage.setItem("id", id ?? "");
     navigate("/home");
   };
+
   return (
     <div>
       <div className="flex flex-col space-y-6 mb-8 w-72 text-black">

@@ -1,5 +1,7 @@
 import { Modal } from "antd";
 import React, { useState } from "react";
+import { editUser } from "../../../api/firestoreAPI";
+import { useParams } from "react-router-dom";
 
 interface editProfileModal {
   modalOpenState: boolean;
@@ -51,6 +53,8 @@ export default function EditProfileModal({
     location: location,
     email: email,
   });
+
+  const { id } = useParams();
   return (
     <>
       <Modal
@@ -71,7 +75,8 @@ export default function EditProfileModal({
           setHeadline(edit.headline ?? "");
           setAlias(edit.alias ?? "");
           setLocation(edit.location ?? "");
-          //TODO: send info to db
+
+          editUser(edit, id ?? "");
 
           setModalOpenState(false);
         }}

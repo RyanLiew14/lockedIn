@@ -1,6 +1,12 @@
 import { postDetailsInterface } from "../components/common/modal/startPostModal";
 import { firestore } from "../firebaseConfig";
-import { addDoc, onSnapshot, collection } from "firebase/firestore";
+import {
+  addDoc,
+  onSnapshot,
+  collection,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
@@ -47,20 +53,35 @@ export interface InsertUserInterface {
   alias: string | null;
 }
 
-export const insertUser = (credentials: InsertUserInterface) => {
-  addDoc(dbRefUsers, credentials)
-    .then(() => {})
-    .catch((err) => {
-      return err;
-    });
+export const insertUser = async (
+  credentials: InsertUserInterface
+): Promise<string> => {
+  const ref = await addDoc(dbRefUsers, credentials);
+  return ref.id;
+};
+
+export interface EditUserInterface {
+  email: string | null | undefined;
+  firstName: string | null | undefined;
+  lastName: string | null | undefined;
+  location: string | null | undefined;
+  headline: string | null | undefined;
+  alias: string | null | undefined;
+}
+
+export const editUser = async (info: EditUserInterface, id: string) => {
+  const userDocumentRef = doc(firestore, "users", id);
+  await updateDoc(userDocumentRef, { ...info });
 };
 
 export interface getUserInterface {
   id: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  alias: string | null;
+  email: string | null | undefined;
+  firstName: string | null | undefined;
+  lastName: string | null | undefined;
+  location: string | null | undefined;
+  headline: string | null | undefined;
+  alias: string | null | undefined;
 }
 
 export const getUserByEmail = (
@@ -76,6 +97,8 @@ export const getUserByEmail = (
           firstName: doc.data().firstName,
           lastName: doc.data().lastName,
           alias: doc.data().alias,
+          headline: doc.data().headline,
+          location: doc.data().location,
           ...doc.data(),
         });
       }
@@ -96,6 +119,8 @@ export const getUserById = (
           firstName: doc.data().firstName,
           lastName: doc.data().lastName,
           alias: doc.data().alias,
+          headline: doc.data().headline,
+          location: doc.data().location,
           ...doc.data(),
         });
       }

@@ -6,16 +6,26 @@ interface ProfileCardProps {
   fName: string | null | undefined;
   lName: string | null | undefined;
   email: string | null | undefined;
+  alias: string | null | undefined;
+  location: string | null | undefined;
+  headline: string | null | undefined;
 }
 
-export default function ProfileCard({ fName, lName, email }: ProfileCardProps) {
+export default function ProfileCard({
+  fName,
+  lName,
+  email,
+  alias,
+  location,
+  headline,
+}: ProfileCardProps) {
   const [modalOpen, setModalOpen] = useState(false);
-  const [alias, setAlias] = useState("");
+  const [aliasState, setAliasState] = useState(alias);
   const [firstName, setFirstName] = useState(fName);
   const [lastName, setLastName] = useState(lName);
   const [userEmail, setUserEmail] = useState(email);
-  const [headline, setHeadline] = useState("");
-  const [location, setLocation] = useState("");
+  const [headlineState, setHeadlineState] = useState(headline);
+  const [locationState, setLocationState] = useState(location);
   return (
     <div className="flex w-full justify-center">
       <div className="relative flex w-9/12 bg-white dark:bg-gray-600 items-center mt-4 flex-col rounded-md text-gray-800 dark:text-white">
@@ -37,9 +47,9 @@ export default function ProfileCard({ fName, lName, email }: ProfileCardProps) {
           {userEmail}
         </div>
 
-        <div>alias: {alias}</div>
-        <div>headline: {headline}</div>
-        <div>location: {location}</div>
+        <div>alias: {aliasState}</div>
+        <div>headline: {headlineState}</div>
+        <div>location: {locationState}</div>
 
         <div className="mt-4 font-sans">Bio Placeholder</div>
       </div>
@@ -51,14 +61,14 @@ export default function ProfileCard({ fName, lName, email }: ProfileCardProps) {
         setFirstName={setFirstName}
         lastName={lastName}
         setLastName={setLastName}
-        alias={alias}
-        setAlias={setAlias}
-        headline={headline}
-        setHeadline={setHeadline}
+        alias={aliasState}
+        setAlias={setAliasState}
+        headline={headlineState}
+        setHeadline={setHeadlineState}
         email={userEmail}
         setEmail={setUserEmail}
-        location={location}
-        setLocation={setLocation}
+        location={locationState}
+        setLocation={setLocationState}
       />
     </div>
   );

@@ -22,11 +22,21 @@ export default function ProfileComponent() {
   const firstName = userDetails?.firstName;
   const lastName = userDetails?.lastName;
   const userEmail = userDetails?.email;
+  const headline = userDetails?.headline;
+  const location = userDetails?.location;
+  const alias = userDetails?.alias;
 
   return userDetails ? (
     <div className="flex flex-col">
       <Navbar></Navbar>
-      <ProfileCard fName={firstName} lName={lastName} email={userEmail} />
+      <ProfileCard
+        fName={firstName}
+        lName={lastName}
+        email={userEmail}
+        headline={headline}
+        location={location}
+        alias={alias}
+      />
       <AchievementsCard />
       <ExperienceCard />
       <HighlightsCard />
