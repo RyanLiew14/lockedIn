@@ -7,16 +7,16 @@ import { getUserByEmail, getUserInterface } from "../api/firestoreAPI";
 export default function LoginComponent() {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const navigate = useNavigate();
-  const email = localStorage.getItem("userEmail");
 
   const [user, setUserInfo] = useState<getUserInterface>();
+
   useMemo(() => {
-    getUserByEmail(email, setUserInfo);
-  }, [email]);
+    getUserByEmail(credentials.email, setUserInfo);
+  }, [credentials.email]);
+
   const login = async () => {
     try {
       const res = await LoginAPI(credentials.email, credentials.password);
-      console.log(res);
       toast.success("Signed in to LockedIn");
       localStorage.setItem("userEmail", res?.user?.email);
       localStorage.setItem("firstName", user?.firstName ?? "");

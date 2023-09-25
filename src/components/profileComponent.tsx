@@ -25,6 +25,7 @@ export default function ProfileComponent() {
   const headline = userDetails?.headline;
   const location = userDetails?.location;
   const alias = userDetails?.alias;
+  const achievements = userDetails?.items;
 
   return userDetails ? (
     <div className="flex flex-col">
@@ -37,12 +38,13 @@ export default function ProfileComponent() {
         location={location}
         alias={alias}
       />
-      <AchievementsCard />
+      <AchievementsCard items={achievements} />
       <ExperienceCard />
       <HighlightsCard />
       <button
         onClick={() => {
           navigate("/login");
+          localStorage.clear();
           onLogout();
         }}
       >

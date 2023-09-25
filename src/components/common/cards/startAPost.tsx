@@ -9,7 +9,6 @@ export default function StartAPost() {
         <button
           onClick={() => {
             setModalOpen(true);
-            console.log(modalOpen);
           }}
           className="text-left bg-gray-800 hover:bg-gray-700 h-12 rounded-3xl p-3 mt-2 w-full"
         >

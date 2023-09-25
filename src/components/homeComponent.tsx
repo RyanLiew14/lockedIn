@@ -11,7 +11,6 @@ export default function HomeComponent() {
     getPosts(setAllPosts);
   }, []);
 
-  console.log(allPosts);
   return (
     <div className="flex flex-col">
       <Navbar></Navbar>

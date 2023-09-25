@@ -7,7 +7,6 @@ export default function Post({
   blog,
   postedAt,
 }: returnedPostDetailsInterface) {
-  console.log(postedAt);
   const timeStamp = moment(postedAt).fromNow();
 
   return (

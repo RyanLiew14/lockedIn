@@ -30,8 +30,6 @@ export default function RegisterComponent() {
       alias: credentials.alias,
     });
 
-    console.log(id);
-
     toast.success("Signed in to LockedIn");
     localStorage.setItem("userEmail", res?.user?.email);
     localStorage.setItem("id", id ?? "");

@@ -1,4 +1,4 @@
-import { Modal } from "antd";
+import { Modal, Typography } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Card, Form, Input, Space } from "antd";
 import { AchievementInterface } from "../cards/achievementsCard";
@@ -8,14 +8,17 @@ export interface AddAchievementModalProps {
   modalOpenState: boolean;
   setModalOpenState: (bool: boolean) => void;
   setAchievements: (achievement: AchievementInterface) => void;
+  achievements: AchievementInterface;
 }
 
 export default function AddAchievementModal({
   modalOpenState,
   setModalOpenState,
   setAchievements,
+  achievements,
 }: AddAchievementModalProps) {
   const [form] = Form.useForm();
+
   return (
     <>
       <Modal
@@ -33,7 +36,10 @@ export default function AddAchievementModal({
           setAchievements(form.getFieldsValue());
           setModalOpenState(false);
         }}
-        onCancel={() => setModalOpenState(false)}
+        onCancel={() => {
+          setAchievements(achievements);
+          setModalOpenState(false);
+        }}
       >
         <Form
           labelCol={{ span: 6 }}
@@ -42,7 +48,7 @@ export default function AddAchievementModal({
           name="dynamic_form_complex"
           style={{ maxWidth: 600 }}
           autoComplete="off"
-          initialValues={{ items: [{}] }}
+          initialValues={achievements}
         >
           <Form.List name="items">
             {(fields, { add, remove }) => (

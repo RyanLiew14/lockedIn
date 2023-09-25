@@ -20,7 +20,7 @@ export const postData = (data: postDetailsInterface) => {
       toast.success("Post has been added!");
     })
     .catch((err) => {
-      console.log(err);
+      toast.error("Something went wrong");
     });
 };
 
@@ -86,6 +86,15 @@ export interface getUserInterface {
   location: string | null | undefined;
   headline: string | null | undefined;
   alias: string | null | undefined;
+  items:
+    | [
+        {
+          game: string;
+          achievementList: [{ achievement: string; date: string }];
+        }
+      ]
+    | null
+    | undefined;
 }
 
 export const getUserByEmail = (
@@ -103,6 +112,7 @@ export const getUserByEmail = (
           alias: doc.data().alias,
           headline: doc.data().headline,
           location: doc.data().location,
+          items: doc.data().items,
           ...doc.data(),
         });
       }
@@ -125,6 +135,7 @@ export const getUserById = (
           alias: doc.data().alias,
           headline: doc.data().headline,
           location: doc.data().location,
+          items: doc.data().items,
           ...doc.data(),
         });
       }
