@@ -1,5 +1,5 @@
 import { postDetailsInterface } from "../components/common/modal/startPostModal";
-import { firestore } from "../firebaseConfig";
+import { firestore, storage } from "../firebaseConfig";
 import {
   addDoc,
   onSnapshot,
@@ -10,6 +10,7 @@ import {
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { AchievementInterface } from "../components/common/cards/achievementsCard";
+import { ref } from "firebase/storage";
 
 const dbRefPosts = collection(firestore, "posts");
 const dbRefUsers = collection(firestore, "users");
@@ -70,8 +71,12 @@ export interface EditUserInterface {
   alias: string | null | undefined;
 }
 
+export interface ProfileImageInterface {
+  imageLink: string | null | undefined;
+}
+
 export const editUser = async (
-  info: AchievementInterface | EditUserInterface,
+  info: AchievementInterface | EditUserInterface | ProfileImageInterface,
   id: string
 ) => {
   const userDocumentRef = doc(firestore, "users", id);
@@ -95,6 +100,7 @@ export interface getUserInterface {
       ]
     | null
     | undefined;
+  imageLink: string;
 }
 
 export const getUserByEmail = (
@@ -113,6 +119,7 @@ export const getUserByEmail = (
           headline: doc.data().headline,
           location: doc.data().location,
           items: doc.data().items,
+          imageLink: doc.data().imageLink,
           ...doc.data(),
         });
       }
@@ -136,6 +143,7 @@ export const getUserById = (
           headline: doc.data().headline,
           location: doc.data().location,
           items: doc.data().items,
+          imageLink: doc.data().imageLink,
           ...doc.data(),
         });
       }

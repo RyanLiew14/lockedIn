@@ -26,6 +26,7 @@ export default function ProfileComponent() {
   const location = userDetails?.location;
   const alias = userDetails?.alias;
   const achievements = userDetails?.items;
+  const imageLink = userDetails?.imageLink;
 
   return userDetails ? (
     <div className="flex flex-col">
@@ -37,6 +38,7 @@ export default function ProfileComponent() {
         headline={headline}
         location={location}
         alias={alias}
+        imageLink={imageLink}
       />
       <AchievementsCard items={achievements} />
       <ExperienceCard />
