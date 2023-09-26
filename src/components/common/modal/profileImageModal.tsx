@@ -1,19 +1,27 @@
 import { Modal } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { uploadImage } from "../../../api/storageAPI";
 import { editUser } from "../../../api/firestoreAPI";
 
 interface ProfileImageModalProps {
   modalOpenState: boolean;
   setModalOpenState: (bool: boolean) => void;
+  setImageLink: (str: string) => void;
+  imageLink: string | undefined | null;
 }
 
 export default function ProfileImageModal({
   modalOpenState,
   setModalOpenState,
+  setImageLink,
+  imageLink,
 }: ProfileImageModalProps) {
   const [imageUpload, setImageUpload] = useState<File>();
-  const [imageUrl, setImageUrl] = useState("");
+  // const [imageLink, setImageLink] = useState<string | null | undefined>();
+
+  useEffect(() => {
+    editUser({ imageLink: imageLink }, localStorage.getItem("id") ?? "");
+  }, [imageLink]);
   return (
     <>
       <Modal
@@ -26,8 +34,8 @@ export default function ProfileImageModal({
         cancelButtonProps={{ type: "link" }}
         okText={"Save"}
         onOk={() => {
-          uploadImage(imageUpload, setImageUrl);
-          editUser({ imageLink: imageUrl }, localStorage.getItem("id") ?? "");
+          uploadImage(imageUpload, setImageLink);
+          setModalOpenState(false);
         }}
         onCancel={() => setModalOpenState(false)}
       >

@@ -9,7 +9,7 @@ import { storage } from "../firebaseConfig";
 import { v4 } from "uuid";
 import { editUser } from "./firestoreAPI";
 
-export const uploadImage = (
+export const uploadImage = async (
   imageUpload: File | undefined,
   setImageUrl: (url: string) => void
 ) => {
@@ -20,7 +20,6 @@ export const uploadImage = (
       getDownloadURL(res.ref).then((url) => {
         setImageUrl(url);
       });
-      alert("image uploaded");
     });
   }
 };
