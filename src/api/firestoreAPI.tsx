@@ -6,6 +6,8 @@ import {
   collection,
   updateDoc,
   doc,
+  arrayUnion,
+  arrayRemove,
 } from "firebase/firestore";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
@@ -83,22 +85,27 @@ export const editUser = async (
   await updateDoc(userDocumentRef, { ...info });
 };
 
-export const editVideos = async (
+export const addVideos = async (
   info: string[],
-  currentVideos: string[] | null | undefined,
+  setVideoUrl: (arr: string[]) => void,
   id: string
 ) => {
   const userDocumentRef = doc(firestore, "users", id);
-  let videosToFirebase = [];
-  if (info[0] === "" && currentVideos) {
-    videosToFirebase = [...currentVideos];
-  } else if (info[0] !== "" && currentVideos) {
-    videosToFirebase = [...info, ...currentVideos];
-  } else {
-    videosToFirebase = [...info];
+
+  if (info[0] !== "") {
+    setVideoUrl(info);
+    await updateDoc(userDocumentRef, {
+      videoUrl: arrayUnion(info[0]),
+    });
   }
-  videosToFirebase = [...new Set(videosToFirebase)];
-  await updateDoc(userDocumentRef, { videoUrl: videosToFirebase });
+};
+
+export const deleteVideos = async (vidUrl: string, id: string) => {
+  const userDocumentRef = doc(firestore, "users", id);
+
+  await updateDoc(userDocumentRef, {
+    videoUrl: arrayRemove(vidUrl),
+  });
 };
 export interface getUserInterface {
   id: string;

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillPlusCircle } from "react-icons/ai";
 import AddHighlightsModals from "../modal/addHighlightsModals";
 import HighlightModal from "../modal/highlightModal";
+import { addVideos } from "../../../api/firestoreAPI";
 
 interface HighlightsCardInterface {
   videoArray: string[] | null | undefined;
@@ -13,8 +14,9 @@ export default function HighlightsCard({
   const [modalOpen, setModalOpen] = useState(false);
   const [deleteVideoModalOpen, setDeleteVideoModalOpen] = useState(false);
   const [videoUrl, setVideoUrl] = useState([""]);
+  const [videoArrayState, setVideoArrayState] = useState(videoArray);
   console.log(videoUrl);
-  console.log(videoArray);
+  console.log(videoArrayState);
 
   console.log(deleteVideoModalOpen);
 
@@ -25,7 +27,8 @@ export default function HighlightsCard({
         setModalOpenState={setModalOpen}
         setVideoUrl={setVideoUrl}
         videoUrl={videoUrl}
-        videoArray={videoArray}
+        videoArray={videoArrayState}
+        setVideoArray={setVideoArrayState}
       />
 
       <div className="relative flex w-9/12 pb-4 bg-white dark:bg-gray-600 items-left mt-4 flex-col rounded-md text-gray-800 dark:text-white">
@@ -42,14 +45,15 @@ export default function HighlightsCard({
         </div>
 
         <div className="p-3 grid grid-cols-4 gap-2">
-          {videoArray?.map((video, index) => (
+          {videoArrayState?.map((video, index) => (
             <>
               <HighlightModal
                 videoLink={video}
                 index={index}
                 modalOpenState={deleteVideoModalOpen}
                 setModalOpenState={setDeleteVideoModalOpen}
-                videoArray={videoArray}
+                videoArray={videoArrayState}
+                setVideoArrayState={setVideoArrayState}
                 videoUrl={videoUrl}
               />
               <div

@@ -22,6 +22,7 @@ export default function ProfileImageModal({
   useEffect(() => {
     editUser({ imageLink: imageLink }, localStorage.getItem("id") ?? "");
   }, [imageLink]);
+
   return (
     <>
       <Modal

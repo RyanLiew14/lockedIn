@@ -1,7 +1,7 @@
 import { Modal } from "antd";
 import React, { useEffect, useState } from "react";
 import { uploadVideo } from "../../../api/storageAPI";
-import { editUser, editVideos } from "../../../api/firestoreAPI";
+import { addVideos } from "../../../api/firestoreAPI";
 
 interface AddHighlightModalInterface {
   modalOpenState: boolean;
@@ -9,6 +9,7 @@ interface AddHighlightModalInterface {
   setVideoUrl: (url: string[]) => void;
   videoUrl: string[];
   videoArray: string[] | null | undefined;
+  setVideoArray: (arr: string[]) => void;
 }
 
 export default function AddHighlightsModals({
@@ -16,13 +17,12 @@ export default function AddHighlightsModals({
   setModalOpenState,
   setVideoUrl,
   videoUrl,
-  videoArray,
 }: AddHighlightModalInterface) {
   const [videoUpload, setVideoUpload] = useState<File>();
 
   useEffect(() => {
-    editVideos(videoUrl, videoArray, localStorage.getItem("id") ?? "");
-  }, [videoUrl, videoArray]);
+    addVideos(videoUrl, setVideoUrl, localStorage.getItem("id") ?? "");
+  }, [setVideoUrl, videoUrl]);
   return (
     <>
       <Modal
@@ -34,8 +34,9 @@ export default function AddHighlightsModals({
         }}
         cancelButtonProps={{ type: "link" }}
         okText={"Save"}
-        onOk={async () => {
-          await uploadVideo(videoUpload, setVideoUrl);
+        onOk={() => {
+          uploadVideo(videoUpload, setVideoUrl);
+          addVideos(videoUrl, setVideoUrl, localStorage.getItem("id") ?? "");
           setModalOpenState(false);
         }}
         onCancel={() => setModalOpenState(false)}

@@ -1,12 +1,13 @@
 import { Modal } from "antd";
 import React, { useEffect } from "react";
-import { editVideos } from "../../../api/firestoreAPI";
+import { deleteVideos, editVideos } from "../../../api/firestoreAPI";
 import { deleteVideo } from "../../../api/storageAPI";
 
 interface HighlightModalInterface {
   videoLink: string;
   modalOpenState: boolean;
   setModalOpenState: (bool: boolean) => void;
+  setVideoArrayState: (arr: string[]) => void;
   index: number;
   videoArray: string[];
   videoUrl: string[];
@@ -16,12 +17,7 @@ export default function HighlightModal({
   videoLink,
   modalOpenState,
   setModalOpenState,
-  videoArray,
-  index,
-  videoUrl,
 }: HighlightModalInterface) {
-  console.log(modalOpenState);
-
   return (
     <>
       <Modal
@@ -34,9 +30,8 @@ export default function HighlightModal({
         cancelButtonProps={{ type: "link" }}
         okText={"Delete"}
         cancelText={"Close"}
-        onOk={async () => {
-          videoArray.splice(index, 1);
-          editVideos(videoUrl, videoArray, localStorage.getItem("id") ?? "");
+        onOk={() => {
+          deleteVideos(videoLink, localStorage.getItem("id") ?? "");
           deleteVideo(videoLink);
           setModalOpenState(false);
         }}
