@@ -88,21 +88,35 @@ export const editUser = async (
 export const addVideos = async (
   info: string[],
   setVideoUrl: (arr: string[]) => void,
+  videoArray: string[] | null | undefined,
+  setVideoArray: (arr: string[]) => void,
   id: string
 ) => {
   const userDocumentRef = doc(firestore, "users", id);
 
   if (info[0] !== "") {
     setVideoUrl(info);
+    if (videoArray) {
+      setVideoArray([...info, ...videoArray]);
+    } else {
+      setVideoArray([...info]);
+    }
+
     await updateDoc(userDocumentRef, {
       videoUrl: arrayUnion(info[0]),
     });
   }
 };
 
-export const deleteVideos = async (vidUrl: string, id: string) => {
+export const deleteVideos = async (
+  vidUrl: string,
+  setVideoArray: (arr: string[]) => void,
+  videoArray: string[],
+  id: string
+) => {
   const userDocumentRef = doc(firestore, "users", id);
 
+  setVideoArray(videoArray.filter((x) => x !== vidUrl));
   await updateDoc(userDocumentRef, {
     videoUrl: arrayRemove(vidUrl),
   });

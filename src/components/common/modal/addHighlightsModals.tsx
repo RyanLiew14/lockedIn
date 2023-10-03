@@ -17,12 +17,20 @@ export default function AddHighlightsModals({
   setModalOpenState,
   setVideoUrl,
   videoUrl,
+  videoArray,
+  setVideoArray,
 }: AddHighlightModalInterface) {
   const [videoUpload, setVideoUpload] = useState<File>();
 
   useEffect(() => {
-    addVideos(videoUrl, setVideoUrl, localStorage.getItem("id") ?? "");
-  }, [setVideoUrl, videoUrl]);
+    addVideos(
+      videoUrl,
+      setVideoUrl,
+      videoArray,
+      setVideoArray,
+      localStorage.getItem("id") ?? ""
+    );
+  }, [videoUrl]);
   return (
     <>
       <Modal
@@ -36,7 +44,13 @@ export default function AddHighlightsModals({
         okText={"Save"}
         onOk={() => {
           uploadVideo(videoUpload, setVideoUrl);
-          addVideos(videoUrl, setVideoUrl, localStorage.getItem("id") ?? "");
+          addVideos(
+            videoUrl,
+            setVideoUrl,
+            videoArray,
+            setVideoArray,
+            localStorage.getItem("id") ?? ""
+          );
           setModalOpenState(false);
         }}
         onCancel={() => setModalOpenState(false)}

@@ -17,6 +17,8 @@ export default function HighlightModal({
   videoLink,
   modalOpenState,
   setModalOpenState,
+  setVideoArrayState,
+  videoArray,
 }: HighlightModalInterface) {
   return (
     <>
@@ -31,7 +33,12 @@ export default function HighlightModal({
         okText={"Delete"}
         cancelText={"Close"}
         onOk={() => {
-          deleteVideos(videoLink, localStorage.getItem("id") ?? "");
+          deleteVideos(
+            videoLink,
+            setVideoArrayState,
+            videoArray,
+            localStorage.getItem("id") ?? ""
+          );
           deleteVideo(videoLink);
           setModalOpenState(false);
         }}
