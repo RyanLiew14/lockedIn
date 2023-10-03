@@ -7,7 +7,7 @@ export interface AchievementInterface {
     | [
         {
           game: string;
-          achievementList: [{ achievement: string; date: string }];
+          achievementList: [{ achievement: string; year: string }];
         }
       ]
     | null
@@ -45,7 +45,7 @@ export default function AchievementsCard(items: AchievementInterface) {
               {achievement.achievementList.map((elem) => (
                 <li className=" relative mt-4  font-sans w-full">
                   {elem.achievement}
-                  <span className="absolute right-3">{elem.date}</span>
+                  <span className="absolute right-3">{elem.year}</span>
                 </li>
               ))}
             </ul>

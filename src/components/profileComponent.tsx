@@ -27,6 +27,7 @@ export default function ProfileComponent() {
   const alias = userDetails?.alias;
   const achievements = userDetails?.items;
   const imageLink = userDetails?.imageLink;
+  const videoArray = userDetails?.videoUrl;
 
   return userDetails ? (
     <div className="flex flex-col">
@@ -42,7 +43,7 @@ export default function ProfileComponent() {
       />
       <AchievementsCard items={achievements} />
       <ExperienceCard />
-      <HighlightsCard />
+      <HighlightsCard videoArray={videoArray} />
       <button
         onClick={() => {
           navigate("/login");

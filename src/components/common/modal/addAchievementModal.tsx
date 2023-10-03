@@ -86,17 +86,14 @@ export default function AddAchievementModal({
                             {subFields.map((subField) => (
                               <Space key={subField.key}>
                                 <Form.Item
-                                  noStyle
                                   name={[subField.name, "achievement"]}
                                 >
                                   <Input placeholder="Achievement" />
                                 </Form.Item>
-                                <Form.Item
-                                  noStyle
-                                  name={[subField.name, "year"]}
-                                >
+                                <Form.Item name={[subField.name, "year"]}>
                                   <Input placeholder="Year" />
                                 </Form.Item>
+
                                 <CloseOutlined
                                   onClick={() => {
                                     subOpt.remove(subField.name);
@@ -124,6 +121,14 @@ export default function AddAchievementModal({
               </div>
             )}
           </Form.List>
+
+          {/* <Form.Item noStyle shouldUpdate>
+            {() => (
+              <Typography>
+                <pre>{JSON.stringify(form.getFieldsValue(), null, 2)}</pre>
+              </Typography>
+            )}
+          </Form.Item> */}
         </Form>
       </Modal>
     </>

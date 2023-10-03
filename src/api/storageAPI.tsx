@@ -23,3 +23,18 @@ export const uploadImage = async (
     });
   }
 };
+
+export const uploadVideo = async (
+  videoUpload: File | undefined,
+  setVideoUrl: (url: string[]) => void
+) => {
+  const uniqueId = videoUpload?.name + v4();
+  const imageStorageRef = ref(storage, `videos/${uniqueId}`);
+  if (videoUpload) {
+    uploadBytes(imageStorageRef, videoUpload).then((res) => {
+      getDownloadURL(res.ref).then((url) => {
+        setVideoUrl([url]);
+      });
+    });
+  }
+};

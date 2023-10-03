@@ -83,6 +83,23 @@ export const editUser = async (
   await updateDoc(userDocumentRef, { ...info });
 };
 
+export const editVideos = async (
+  info: string[],
+  currentVideos: string[] | null | undefined,
+  id: string
+) => {
+  const userDocumentRef = doc(firestore, "users", id);
+  let videosToFirebase = [];
+  if (info[0] !== "") {
+    if (currentVideos) {
+      videosToFirebase = [...info, ...currentVideos];
+    } else {
+      videosToFirebase = [...info];
+    }
+    videosToFirebase = [...new Set(videosToFirebase)];
+    await updateDoc(userDocumentRef, { videoUrl: videosToFirebase });
+  }
+};
 export interface getUserInterface {
   id: string;
   email: string | null | undefined;
@@ -95,12 +112,13 @@ export interface getUserInterface {
     | [
         {
           game: string;
-          achievementList: [{ achievement: string; date: string }];
+          achievementList: [{ achievement: string; year: string }];
         }
       ]
     | null
     | undefined;
   imageLink: string;
+  videoUrl: string[] | null | undefined;
 }
 
 export const getUserByEmail = (
@@ -120,6 +138,7 @@ export const getUserByEmail = (
           location: doc.data().location,
           items: doc.data().items,
           imageLink: doc.data().imageLink,
+          videoUrl: doc.data().videoUrl,
           ...doc.data(),
         });
       }
@@ -144,6 +163,7 @@ export const getUserById = (
           location: doc.data().location,
           items: doc.data().items,
           imageLink: doc.data().imageLink,
+          videoUrl: doc.data().videoUrl,
           ...doc.data(),
         });
       }

@@ -73,7 +73,9 @@ export default function ProfileCard({
         </div>
 
         <div className="font-thin">{headlineState}</div>
-        <div className="font-extralight text-sm">{locationState}</div>
+        <div className="font-extralight text-sm text-teal-200">
+          {locationState}
+        </div>
       </div>
 
       <EditProfileModal
