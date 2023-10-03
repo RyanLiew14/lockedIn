@@ -90,15 +90,15 @@ export const editVideos = async (
 ) => {
   const userDocumentRef = doc(firestore, "users", id);
   let videosToFirebase = [];
-  if (info[0] !== "") {
-    if (currentVideos) {
-      videosToFirebase = [...info, ...currentVideos];
-    } else {
-      videosToFirebase = [...info];
-    }
-    videosToFirebase = [...new Set(videosToFirebase)];
-    await updateDoc(userDocumentRef, { videoUrl: videosToFirebase });
+  if (info[0] === "" && currentVideos) {
+    videosToFirebase = [...currentVideos];
+  } else if (info[0] !== "" && currentVideos) {
+    videosToFirebase = [...info, ...currentVideos];
+  } else {
+    videosToFirebase = [...info];
   }
+  videosToFirebase = [...new Set(videosToFirebase)];
+  await updateDoc(userDocumentRef, { videoUrl: videosToFirebase });
 };
 export interface getUserInterface {
   id: string;

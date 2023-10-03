@@ -1,4 +1,5 @@
 import {
+  deleteObject,
   getDownloadURL,
   list,
   listAll,
@@ -8,6 +9,8 @@ import {
 import { storage } from "../firebaseConfig";
 import { v4 } from "uuid";
 import { editUser } from "./firestoreAPI";
+import { videoName } from "../helper/linkParser";
+import { toast } from "react-toastify";
 
 export const uploadImage = async (
   imageUpload: File | undefined,
@@ -37,4 +40,16 @@ export const uploadVideo = async (
       });
     });
   }
+};
+
+export const deleteVideo = async (videoUrl: string) => {
+  const vidName = videoName(videoUrl);
+  const imageStorageRef = ref(storage, `videos/${vidName}`);
+  deleteObject(imageStorageRef)
+    .then(() => {
+      toast.success("Deleted successfully");
+    })
+    .catch((error) => {
+      toast.error("Something went wrong");
+    });
 };

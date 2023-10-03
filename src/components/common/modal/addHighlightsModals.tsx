@@ -22,7 +22,7 @@ export default function AddHighlightsModals({
 
   useEffect(() => {
     editVideos(videoUrl, videoArray, localStorage.getItem("id") ?? "");
-  }, [videoUrl]);
+  }, [videoUrl, videoArray]);
   return (
     <>
       <Modal
