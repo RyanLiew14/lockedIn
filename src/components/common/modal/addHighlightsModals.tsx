@@ -2,6 +2,7 @@ import { Modal } from "antd";
 import React, { useEffect, useState } from "react";
 import { uploadVideo } from "../../../api/storageAPI";
 import { addVideos } from "../../../api/firestoreAPI";
+import { toast } from "react-toastify";
 
 interface AddHighlightModalInterface {
   modalOpenState: boolean;
@@ -44,13 +45,9 @@ export default function AddHighlightsModals({
         okText={"Save"}
         onOk={() => {
           uploadVideo(videoUpload, setVideoUrl);
-          addVideos(
-            videoUrl,
-            setVideoUrl,
-            videoArray,
-            setVideoArray,
-            localStorage.getItem("id") ?? ""
-          );
+          toast.loading("Uploading highlight", {
+            toastId: "highlight-loading-toast-id",
+          });
           setModalOpenState(false);
         }}
         onCancel={() => setModalOpenState(false)}

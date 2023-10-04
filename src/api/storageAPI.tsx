@@ -31,7 +31,6 @@ export const uploadVideo = async (
   videoUpload: File | undefined,
   setVideoUrl: (url: string[]) => void
 ) => {
-  console.log(videoUpload?.name);
   const uniqueId = videoUpload?.name + v4();
   const imageStorageRef = ref(storage, `videos/${uniqueId}`);
   if (videoUpload) {

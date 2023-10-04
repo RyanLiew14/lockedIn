@@ -101,6 +101,8 @@ export const addVideos = async (
     } else {
       setVideoArray([...info]);
     }
+    toast.success("Highlight added successfully");
+    toast.dismiss("highlight-loading-toast-id");
 
     await updateDoc(userDocumentRef, {
       videoUrl: arrayUnion(info[0]),

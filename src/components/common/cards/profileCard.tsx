@@ -4,6 +4,7 @@ import EditProfileModal from "../modal/editProfileModal";
 import ProfileImageModal from "../modal/profileImageModal";
 import { BsPerson } from "react-icons/bs";
 import { AiFillCamera } from "react-icons/ai";
+import { useParams } from "react-router-dom";
 
 interface ProfileCardProps {
   fName: string | null | undefined;
@@ -34,6 +35,8 @@ export default function ProfileCard({
   const [profileImageModalOpen, setProfileImageModalOpen] = useState(false);
   const [imageLinkState, setImageLinkState] = useState(imageLink);
 
+  const { id } = useParams();
+
   return (
     <div className="flex w-full justify-center">
       <ProfileImageModal
@@ -43,14 +46,17 @@ export default function ProfileCard({
         imageLink={imageLinkState}
       />
       <div className="space-y-2 pb-4 relative flex w-9/12 bg-white dark:bg-gray-600 items-start pl-3 mt-4 flex-col rounded-md text-gray-800 dark:text-white">
-        <div className="absolute right-0 p-3 cursor-pointer">
-          <BiPencil
-            onClick={() => {
-              setModalOpen(true);
-            }}
-            size={30}
-          ></BiPencil>
-        </div>
+        {localStorage.getItem("id") === id && (
+          <div className="absolute right-0 p-3 cursor-pointer">
+            <BiPencil
+              onClick={() => {
+                setModalOpen(true);
+              }}
+              size={30}
+            ></BiPencil>
+          </div>
+        )}
+
         <div
           onClick={() => {
             setProfileImageModalOpen(true);

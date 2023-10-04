@@ -30,7 +30,7 @@ export default function ProfileComponent() {
   const videoArray = userDetails?.videoUrl;
 
   return userDetails ? (
-    <div className="flex flex-col">
+    <div className="flex flex-col items-center">
       <Navbar></Navbar>
       <ProfileCard
         fName={firstName}
@@ -44,15 +44,18 @@ export default function ProfileComponent() {
       <AchievementsCard items={achievements} />
       <ExperienceCard />
       <HighlightsCard videoArray={videoArray} />
-      <button
-        onClick={() => {
-          navigate("/login");
-          localStorage.clear();
-          onLogout();
-        }}
-      >
-        LogOut
-      </button>
+      {localStorage.getItem("id") === id && (
+        <button
+          onClick={() => {
+            navigate("/login");
+            localStorage.clear();
+            onLogout();
+          }}
+          className="mt-4 w-9/12 bg-white dark:bg-gray-600 p-2 rounded-md hover:bg-teal-500"
+        >
+          Log Out
+        </button>
+      )}
     </div>
   ) : (
     <Loader />
