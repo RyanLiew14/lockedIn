@@ -31,7 +31,7 @@ export default function ProfileComponent() {
   const career = userDetails?.career;
 
   return userDetails ? (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col">
       <Navbar></Navbar>
       <ProfileCard
         fName={firstName}
@@ -45,18 +45,20 @@ export default function ProfileComponent() {
       <AchievementsCard achievements={achievements} />
       <ExperienceCard career={career} />
       <HighlightsCard videoArray={videoArray} />
-      {localStorage.getItem("id") === id && (
-        <button
-          onClick={() => {
-            navigate("/login");
-            localStorage.clear();
-            onLogout();
-          }}
-          className="mt-4 w-9/12 bg-white dark:bg-gray-600 p-2 rounded-md hover:bg-teal-500"
-        >
-          Log Out
-        </button>
-      )}
+      <div className="w-full flex justify-center">
+        {localStorage.getItem("id") === id && (
+          <button
+            onClick={() => {
+              navigate("/login");
+              localStorage.clear();
+              onLogout();
+            }}
+            className="mt-4 w-9/12 bg-white dark:bg-gray-600 p-2 rounded-md hover:bg-teal-500"
+          >
+            Log Out
+          </button>
+        )}
+      </div>
     </div>
   ) : (
     <Loader />
