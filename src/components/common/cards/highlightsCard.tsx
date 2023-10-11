@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { AiFillPlusCircle } from "react-icons/ai";
 import AddHighlightsModals from "../modal/addHighlightsModals";
 import HighlightModal from "../modal/highlightModal";
-import { addVideos } from "../../../api/firestoreAPI";
 import { useParams } from "react-router-dom";
 
 interface HighlightsCardInterface {

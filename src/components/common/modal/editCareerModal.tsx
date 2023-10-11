@@ -1,9 +1,7 @@
-import { Button, Card, Form, Input, Modal, Space, Typography } from "antd";
+import { Button, Card, Form, Input, Modal, Space } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
-import React from "react";
 import { CareerInterface } from "../cards/experienceCard";
 import { editUser } from "../../../api/firestoreAPI";
-import { useParams } from "react-router-dom";
 
 interface EditCareerModalInterface {
   modalOpenState: boolean;
@@ -20,9 +18,6 @@ export default function EditCareerModal({
 }: EditCareerModalInterface) {
   const [form] = Form.useForm();
 
-  const { id } = useParams();
-
-  console.log(career);
   return (
     <>
       <Modal
@@ -125,14 +120,6 @@ export default function EditCareerModal({
               </div>
             )}
           </Form.List>
-
-          <Form.Item noStyle shouldUpdate>
-            {() => (
-              <Typography>
-                <pre>{JSON.stringify(form.getFieldsValue(), null, 2)}</pre>
-              </Typography>
-            )}
-          </Form.Item>
         </Form>
       </Modal>
     </>

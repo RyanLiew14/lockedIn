@@ -1,4 +1,4 @@
-import { Modal, Typography } from "antd";
+import { Modal } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, Card, Form, Input, Space } from "antd";
 import { AchievementInterface } from "../cards/achievementsCard";

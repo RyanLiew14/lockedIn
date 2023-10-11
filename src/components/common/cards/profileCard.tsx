@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { BiPencil } from "react-icons/bi";
 import EditProfileModal from "../modal/editProfileModal";
 import ProfileImageModal from "../modal/profileImageModal";
-import { BsPerson } from "react-icons/bs";
 import { AiFillCamera } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 

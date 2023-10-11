@@ -1,6 +1,5 @@
 import { Modal } from "antd";
-import React, { useEffect } from "react";
-import { deleteVideos, editVideos } from "../../../api/firestoreAPI";
+import { deleteVideos } from "../../../api/firestoreAPI";
 import { deleteVideo } from "../../../api/storageAPI";
 
 interface HighlightModalInterface {

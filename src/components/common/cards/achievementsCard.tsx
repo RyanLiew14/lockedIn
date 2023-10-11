@@ -20,8 +20,6 @@ export default function AchievementsCard(achievements: AchievementInterface) {
   const [achievementState, setAchievementState] =
     useState<AchievementInterface>(achievements);
 
-  console.log(achievementState);
-
   const { id } = useParams();
   return (
     <div className="flex w-full justify-center">

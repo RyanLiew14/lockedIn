@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import Navbar from "./common/navbar/navbar";
 import { useNavigate, useParams } from "react-router-dom";
 import { onLogout } from "../api/AuthAPI";
