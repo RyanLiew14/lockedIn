@@ -50,7 +50,7 @@ export default function AddAchievementModal({
           autoComplete="off"
           initialValues={achievements}
         >
-          <Form.List name="items">
+          <Form.List name="achievements">
             {(fields, { add, remove }) => (
               <div
                 style={{ display: "flex", rowGap: 16, flexDirection: "column" }}

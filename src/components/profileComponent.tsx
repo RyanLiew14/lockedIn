@@ -25,9 +25,10 @@ export default function ProfileComponent() {
   const headline = userDetails?.headline;
   const location = userDetails?.location;
   const alias = userDetails?.alias;
-  const achievements = userDetails?.items;
+  const achievements = userDetails?.achievements;
   const imageLink = userDetails?.imageLink;
   const videoArray = userDetails?.videoUrl;
+  const career = userDetails?.career;
 
   return userDetails ? (
     <div className="flex flex-col items-center">
@@ -41,8 +42,8 @@ export default function ProfileComponent() {
         alias={alias}
         imageLink={imageLink}
       />
-      <AchievementsCard items={achievements} />
-      <ExperienceCard />
+      <AchievementsCard achievements={achievements} />
+      <ExperienceCard career={career} />
       <HighlightsCard videoArray={videoArray} />
       {localStorage.getItem("id") === id && (
         <button

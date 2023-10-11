@@ -4,7 +4,7 @@ import AddAchievementModal from "../modal/addAchievementModal";
 import { useParams } from "react-router-dom";
 
 export interface AchievementInterface {
-  items:
+  achievements:
     | [
         {
           game: string;
@@ -15,9 +15,12 @@ export interface AchievementInterface {
     | undefined;
 }
 
-export default function AchievementsCard(items: AchievementInterface) {
+export default function AchievementsCard(achievements: AchievementInterface) {
   const [modalOpen, setModalOpen] = useState(false);
-  const [achievements, setAchievements] = useState<AchievementInterface>(items);
+  const [achievementState, setAchievementState] =
+    useState<AchievementInterface>(achievements);
+
+  console.log(achievementState);
 
   const { id } = useParams();
   return (
@@ -25,8 +28,8 @@ export default function AchievementsCard(items: AchievementInterface) {
       <AddAchievementModal
         modalOpenState={modalOpen}
         setModalOpenState={setModalOpen}
-        setAchievements={setAchievements}
-        achievements={achievements}
+        setAchievements={setAchievementState}
+        achievements={achievementState}
       />
       <div className="relative flex w-9/12 pb-4 bg-white dark:bg-gray-600 items-left mt-4 flex-col rounded-md text-gray-800 dark:text-white">
         {localStorage.getItem("id") === id && (
@@ -44,7 +47,7 @@ export default function AchievementsCard(items: AchievementInterface) {
           Achievements
         </div>
 
-        {achievements?.items?.map((achievement) => (
+        {achievementState?.achievements?.map((achievement) => (
           <div className="pl-3 pt-3">
             <p>{achievement.game}</p>
             <ul className="list-disc pl-12">

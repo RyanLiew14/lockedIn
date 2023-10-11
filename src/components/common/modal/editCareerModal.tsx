@@ -2,6 +2,8 @@ import { Button, Card, Form, Input, Modal, Space, Typography } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import React from "react";
 import { CareerInterface } from "../cards/experienceCard";
+import { editUser } from "../../../api/firestoreAPI";
+import { useParams } from "react-router-dom";
 
 interface EditCareerModalInterface {
   modalOpenState: boolean;
@@ -17,6 +19,10 @@ export default function EditCareerModal({
   setCareer,
 }: EditCareerModalInterface) {
   const [form] = Form.useForm();
+
+  const { id } = useParams();
+
+  console.log(career);
   return (
     <>
       <Modal
@@ -29,6 +35,7 @@ export default function EditCareerModal({
         cancelButtonProps={{ type: "link" }}
         okText={"Save"}
         onOk={() => {
+          editUser(form.getFieldsValue(), localStorage.getItem("id") ?? "");
           setCareer(form.getFieldsValue());
           setModalOpenState(false);
         }}
@@ -46,7 +53,7 @@ export default function EditCareerModal({
           autoComplete="off"
           initialValues={career}
         >
-          <Form.List name="items">
+          <Form.List name="career">
             {(fields, { add, remove }) => (
               <div
                 style={{ display: "flex", rowGap: 16, flexDirection: "column" }}

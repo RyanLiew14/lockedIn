@@ -13,6 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { AchievementInterface } from "../components/common/cards/achievementsCard";
 import { ref } from "firebase/storage";
+import { CareerInterface } from "../components/common/cards/experienceCard";
 
 const dbRefPosts = collection(firestore, "posts");
 const dbRefUsers = collection(firestore, "users");
@@ -78,7 +79,11 @@ export interface ProfileImageInterface {
 }
 
 export const editUser = async (
-  info: AchievementInterface | EditUserInterface | ProfileImageInterface,
+  info:
+    | AchievementInterface
+    | EditUserInterface
+    | ProfileImageInterface
+    | CareerInterface,
   id: string
 ) => {
   const userDocumentRef = doc(firestore, "users", id);
@@ -131,7 +136,7 @@ export interface getUserInterface {
   location: string | null | undefined;
   headline: string | null | undefined;
   alias: string | null | undefined;
-  items:
+  achievements:
     | [
         {
           game: string;
@@ -142,6 +147,15 @@ export interface getUserInterface {
     | undefined;
   imageLink: string;
   videoUrl: string[] | null | undefined;
+  career:
+    | [
+        {
+          organization: string;
+          roleList: [{ role: string; year: string }];
+        }
+      ]
+    | null
+    | undefined;
 }
 
 export const getUserByEmail = (
@@ -159,9 +173,10 @@ export const getUserByEmail = (
           alias: doc.data().alias,
           headline: doc.data().headline,
           location: doc.data().location,
-          items: doc.data().items,
+          achievements: doc.data().achievements,
           imageLink: doc.data().imageLink,
           videoUrl: doc.data().videoUrl,
+          career: doc.data().career,
           ...doc.data(),
         });
       }
@@ -184,9 +199,10 @@ export const getUserById = (
           alias: doc.data().alias,
           headline: doc.data().headline,
           location: doc.data().location,
-          items: doc.data().items,
+          achievements: doc.data().achievements,
           imageLink: doc.data().imageLink,
           videoUrl: doc.data().videoUrl,
+          career: doc.data().career,
           ...doc.data(),
         });
       }

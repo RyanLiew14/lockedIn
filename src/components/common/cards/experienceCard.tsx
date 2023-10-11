@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import EditCareerModal from "../modal/editCareerModal";
 
 export interface CareerInterface {
-  items:
+  career:
     | [
         {
           organization: string;
@@ -15,9 +15,9 @@ export interface CareerInterface {
     | undefined;
 }
 
-export default function ExperienceCard(items: CareerInterface) {
+export default function ExperienceCard(career: CareerInterface) {
   const [careerModalOpen, setCareerModalOpen] = useState(false);
-  const [career, setCareer] = useState(items);
+  const [careerState, setCareerState] = useState(career);
 
   const { id } = useParams();
   return (
@@ -25,8 +25,8 @@ export default function ExperienceCard(items: CareerInterface) {
       <EditCareerModal
         modalOpenState={careerModalOpen}
         setModalOpenState={setCareerModalOpen}
-        career={career}
-        setCareer={setCareer}
+        career={careerState}
+        setCareer={setCareerState}
       />
       <div className="relative flex w-9/12 pb-4 bg-white dark:bg-gray-600 items-left mt-4 flex-col rounded-md text-gray-800 dark:text-white">
         {localStorage.getItem("id") === id && (
@@ -41,23 +41,19 @@ export default function ExperienceCard(items: CareerInterface) {
         )}
 
         <div className="mt-4 font-sans font-semibold pl-3 text-lg">Career</div>
-
-        <div className="mt-4 pl-3 font-sans w-full">
-          Experience placeholder
-          <div className="flex justify-end pr-3">2023</div>
-        </div>
-        <div className="mt-4 pl-3 font-sans w-full">
-          Experience placeholder 2
-          <div className="flex justify-end pr-3">2023</div>
-        </div>
-        <div className="mt-4 pl-3 font-sans w-full">
-          Experience placeholder 3
-          <div className="flex justify-end pr-3">2023</div>
-        </div>
-        <div className="mt-4 pl-3 font-sans w-full">
-          Experience placeholder 4
-          <div className="flex justify-end pr-3">2023</div>
-        </div>
+        {careerState?.career?.map((career) => (
+          <div className="pl-3 pt-3">
+            <p>{career.organization}</p>
+            <ul className="list-disc pl-12">
+              {career.roleList.map((elem) => (
+                <li className=" relative mt-4  font-sans w-full">
+                  {elem.role}
+                  <span className="absolute right-3">{elem.year}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </div>
   );
