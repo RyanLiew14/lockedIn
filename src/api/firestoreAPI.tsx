@@ -32,6 +32,13 @@ export interface returnedPostDetailsInterface {
   id: string;
   blog: string;
   postedAt: string;
+  author: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    alias: string;
+    imageLink: string;
+  };
 }
 
 export const getPosts = (
@@ -45,6 +52,7 @@ export const getPosts = (
           id: doc.id,
           blog: doc.data().blog,
           postedAt: doc.data().postedAt,
+          author: doc.data().author,
         };
       })
     );

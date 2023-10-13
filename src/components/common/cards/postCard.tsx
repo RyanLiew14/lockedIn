@@ -6,13 +6,18 @@ export default function Post({
   id,
   blog,
   postedAt,
+  author,
 }: returnedPostDetailsInterface) {
   const timeStamp = moment(postedAt).fromNow();
 
   return (
     <div className="flex w-full justify-center">
       <div className="flex w-9/12 h-48 bg-white dark:bg-gray-600 items-center mt-4 flex-col rounded-md text-gray-800 dark:text-white">
-        <div className="mt-4 font-sans font-semibold">{id}</div>
+        <div className="mt-4 font-sans font-semibold">
+          {author.firstName}
+          {author.alias}
+          {author.lastName}
+        </div>
 
         <div className="mt-4 font-sans">{blog}</div>
 

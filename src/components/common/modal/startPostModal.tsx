@@ -6,17 +6,33 @@ import { getCurrentTimeStamp } from "../../../helper/useMoment";
 interface StartPostModalProps {
   modalOpenState: boolean;
   setModalOpenState: (a: boolean) => void;
+  firstName: string | null | undefined;
+  lastName: string | null | undefined;
+  alias: string | null | undefined;
+  email: string | null | undefined;
+  imageLink: string | null | undefined;
 }
 
 export interface postDetailsInterface {
   blog: string;
   postedAt: string;
-  author: string | null;
+  author: {
+    firstName: string | null | undefined;
+    lastName: string | null | undefined;
+    alias: string | null | undefined;
+    email: string | null | undefined;
+    imageLink: string | null | undefined;
+  };
 }
 
 export default function StartPostModal({
   modalOpenState,
   setModalOpenState,
+  firstName,
+  lastName,
+  email,
+  imageLink,
+  alias,
 }: StartPostModalProps) {
   const [postDetails, setPostDetails] = useState({ blog: "" });
   const sendPost = async (details: postDetailsInterface) => {
@@ -41,7 +57,13 @@ export default function StartPostModal({
           sendPost({
             ...postDetails,
             postedAt: getCurrentTimeStamp("LLL"),
-            author: localStorage.getItem("userEmail"),
+            author: {
+              firstName: firstName,
+              lastName: lastName,
+              alias: alias,
+              email: email,
+              imageLink: imageLink,
+            },
           });
         }}
         onCancel={() => setModalOpenState(false)}
