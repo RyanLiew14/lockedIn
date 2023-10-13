@@ -8,6 +8,7 @@ interface StartPostInterface {
   lastName: string | null | undefined;
   alias: string | null | undefined;
   email: string | null | undefined;
+  headline: string | null | undefined;
 }
 
 export default function StartAPost({
@@ -16,6 +17,7 @@ export default function StartAPost({
   lastName,
   alias,
   email,
+  headline,
 }: StartPostInterface) {
   const [modalOpen, setModalOpen] = useState(false);
   return (
@@ -45,6 +47,7 @@ export default function StartAPost({
           lastName={lastName}
           email={email}
           alias={alias}
+          headline={headline}
         ></StartPostModal>
       </div>
     </div>

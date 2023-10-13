@@ -38,6 +38,7 @@ export interface returnedPostDetailsInterface {
     email: string;
     alias: string;
     imageLink: string;
+    headline: string;
   };
 }
 

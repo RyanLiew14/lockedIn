@@ -11,6 +11,7 @@ interface StartPostModalProps {
   alias: string | null | undefined;
   email: string | null | undefined;
   imageLink: string | null | undefined;
+  headline: string | null | undefined;
 }
 
 export interface postDetailsInterface {
@@ -22,6 +23,7 @@ export interface postDetailsInterface {
     alias: string | null | undefined;
     email: string | null | undefined;
     imageLink: string | null | undefined;
+    headline: string | null | undefined;
   };
 }
 
@@ -33,6 +35,7 @@ export default function StartPostModal({
   email,
   imageLink,
   alias,
+  headline,
 }: StartPostModalProps) {
   const [postDetails, setPostDetails] = useState({ blog: "" });
   const sendPost = async (details: postDetailsInterface) => {
@@ -63,6 +66,7 @@ export default function StartPostModal({
               alias: alias,
               email: email,
               imageLink: imageLink,
+              headline: headline,
             },
           });
         }}

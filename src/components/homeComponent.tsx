@@ -50,6 +50,7 @@ export default function HomeComponent() {
         alias={alias}
         email={userEmail}
         imageLink={imageLink}
+        headline={headline}
       ></StartAPost>
       {allPosts?.map((post) => {
         return (
