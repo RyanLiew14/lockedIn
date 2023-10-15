@@ -59,6 +59,7 @@ export default function HomeComponent() {
             blog={post.blog}
             postedAt={post.postedAt}
             author={post.author}
+            likes={post.likes}
           ></Post>
         );
       })}

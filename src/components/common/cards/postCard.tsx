@@ -1,19 +1,25 @@
 import React from "react";
-import { returnedPostDetailsInterface } from "../../../api/firestoreAPI";
+import {
+  likePost,
+  returnedPostDetailsInterface,
+  unlikePost,
+} from "../../../api/firestoreAPI";
 import moment from "moment";
-import { BsFillPersonFill } from "react-icons/bs";
+import { BsFillPersonFill, BsHandThumbsUp } from "react-icons/bs";
+import { BiCommentDots } from "react-icons/bi";
 
 export default function Post({
   id,
   blog,
   postedAt,
   author,
+  likes,
 }: returnedPostDetailsInterface) {
   const timeStamp = moment(postedAt).fromNow();
 
   return (
     <div className="flex w-full justify-center">
-      <div className="flex w-9/12 h-48 bg-white dark:bg-gray-600 items-start mt-4 flex-col rounded-md text-gray-800 dark:text-white p-2">
+      <div className="flex w-9/12 bg-white dark:bg-gray-600 items-start mt-4 flex-col rounded-md text-gray-800 dark:text-white p-2">
         <div className="flex flex-row gap-2">
           <div className="h-full rounded-full overflow-hidden flex border-2 border-teal-500">
             {author.imageLink ? (
@@ -31,11 +37,43 @@ export default function Post({
             <div className="font-extralight text-xs">{author.headline}</div>
           </div>
         </div>
-
         <div className="font-sans text-xs mt-1 font-thin text-teal-200">
           {timeStamp}
         </div>
         <div className="mt-4 font-sans text-sm">{blog}</div>
+        <div className="flex flex-row mt-3 gap-2">
+          <div className="text-xs"> {likes?.length ?? 0} likes</div>
+          <div className="text-xs"> 3 Comments</div>
+        </div>
+
+        <div className="flex flex-row w-full justify-center">
+          {likes?.includes(localStorage.getItem("id") ?? "") ? (
+            <button
+              onClick={() => {
+                unlikePost(id, localStorage.getItem("id") ?? "");
+              }}
+              className="rounded-lg p-1 flex flex-row items-center gap-1 text-teal-500 hover:text-white"
+            >
+              <BsHandThumbsUp />
+              Like
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                likePost(id, localStorage.getItem("id") ?? "");
+              }}
+              className="rounded-lg p-1 flex flex-row items-center gap-1 hover:text-teal-500"
+            >
+              <BsHandThumbsUp />
+              Like
+            </button>
+          )}
+
+          <button className="rounded-lg p-1 flex flex-row items-center gap-1 hover:text-teal-500">
+            <BiCommentDots />
+            Comment
+          </button>
+        </div>
       </div>
     </div>
   );

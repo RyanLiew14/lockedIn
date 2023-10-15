@@ -40,7 +40,24 @@ export interface returnedPostDetailsInterface {
     imageLink: string;
     headline: string;
   };
+  likes: string[];
 }
+
+export const likePost = async (postId: string, userId: string) => {
+  const postDocumentRef = doc(firestore, "posts", postId);
+
+  await updateDoc(postDocumentRef, {
+    likes: arrayUnion(userId),
+  });
+};
+
+export const unlikePost = async (postId: string, userId: string) => {
+  const postDocumentRef = doc(firestore, "posts", postId);
+
+  await updateDoc(postDocumentRef, {
+    likes: arrayRemove(userId),
+  });
+};
 
 export const getPosts = (
   setAllPosts: (arr: returnedPostDetailsInterface[]) => void
@@ -54,6 +71,7 @@ export const getPosts = (
           blog: doc.data().blog,
           postedAt: doc.data().postedAt,
           author: doc.data().author,
+          likes: doc.data().likes,
         };
       })
     );
