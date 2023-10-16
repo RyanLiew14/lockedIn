@@ -55,9 +55,33 @@ export default function Post({
           <div className="text-xs"> {comment?.length ?? 0} Comments</div>
         </div>
 
-        <div className="mt-4">
+        <div className="mt-4 w-full">
           {comment?.map((comment) => (
-            <div className="text-xs">{comment.comment}</div>
+            <div className="flex flex-col bg-gray-800 rounded-md mb-2 p-2">
+              <div className="flex flex-row gap-2">
+                <div className="h-full rounded-full overflow-hidden flex border-2 border-teal-500">
+                  {comment.author.imageLink ? (
+                    <img
+                      className="object-cover h-10 w-10"
+                      src={comment.author.imageLink}
+                    />
+                  ) : (
+                    <BsFillPersonFill className="h-12 w-12"></BsFillPersonFill>
+                  )}
+                </div>
+                <div className="flex flex-col space-y-1">
+                  <div className="font-sans font-semibold text-sm">
+                    {comment.author.firstName} {"'"}
+                    {comment.author.alias}
+                    {"'"} {comment.author.lastName}
+                  </div>
+                  <div className="font-extralight text-xs">
+                    {comment.author.headline}
+                  </div>
+                </div>
+              </div>
+              <div className="mt-6 text-sm">{comment.comment}</div>
+            </div>
           ))}
         </div>
 
