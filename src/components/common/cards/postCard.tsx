@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   likePost,
   returnedPostDetailsInterface,
@@ -7,6 +7,7 @@ import {
 import moment from "moment";
 import { BsFillPersonFill, BsHandThumbsUp } from "react-icons/bs";
 import { BiCommentDots } from "react-icons/bi";
+import CommentPostModal from "../modal/commentPostModal";
 
 export default function Post({
   id,
@@ -14,11 +15,19 @@ export default function Post({
   postedAt,
   author,
   likes,
+  comment,
 }: returnedPostDetailsInterface) {
   const timeStamp = moment(postedAt).fromNow();
+  const [commentModalOpen, setCommentModalOpen] = useState(false);
 
   return (
     <div className="flex w-full justify-center">
+      <CommentPostModal
+        modalOpenState={commentModalOpen}
+        setModalOpenState={setCommentModalOpen}
+        author={author}
+        postId={id}
+      />
       <div className="flex w-9/12 bg-white dark:bg-gray-600 items-start mt-4 flex-col rounded-md text-gray-800 dark:text-white p-2">
         <div className="flex flex-row gap-2">
           <div className="h-full rounded-full overflow-hidden flex border-2 border-teal-500">
@@ -43,7 +52,13 @@ export default function Post({
         <div className="mt-4 font-sans text-sm">{blog}</div>
         <div className="flex flex-row mt-3 gap-2">
           <div className="text-xs"> {likes?.length ?? 0} likes</div>
-          <div className="text-xs"> 3 Comments</div>
+          <div className="text-xs"> {comment?.length ?? 0} Comments</div>
+        </div>
+
+        <div className="mt-4">
+          {comment?.map((comment) => (
+            <div className="text-xs">{comment.comment}</div>
+          ))}
         </div>
 
         <div className="flex flex-row w-full justify-center">
@@ -69,7 +84,12 @@ export default function Post({
             </button>
           )}
 
-          <button className="rounded-lg p-1 flex flex-row items-center gap-1 hover:text-teal-500">
+          <button
+            onClick={() => {
+              setCommentModalOpen(true);
+            }}
+            className="rounded-lg p-1 flex flex-row items-center gap-1 hover:text-teal-500"
+          >
             <BiCommentDots />
             Comment
           </button>

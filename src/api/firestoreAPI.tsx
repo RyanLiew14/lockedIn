@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import { AchievementInterface } from "../components/common/cards/achievementsCard";
 import { ref } from "firebase/storage";
 import { CareerInterface } from "../components/common/cards/experienceCard";
+import { CommentInterface } from "../components/common/modal/commentPostModal";
 
 const dbRefPosts = collection(firestore, "posts");
 const dbRefUsers = collection(firestore, "users");
@@ -32,15 +33,18 @@ export interface returnedPostDetailsInterface {
   id: string;
   blog: string;
   postedAt: string;
-  author: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    alias: string;
-    imageLink: string;
-    headline: string;
-  };
+  author: AuthorInterface;
   likes: string[];
+  comment: CommentInterface[];
+}
+
+export interface AuthorInterface {
+  firstName: string;
+  lastName: string;
+  email: string;
+  alias: string;
+  imageLink: string;
+  headline: string;
 }
 
 export const likePost = async (postId: string, userId: string) => {
@@ -59,6 +63,17 @@ export const unlikePost = async (postId: string, userId: string) => {
   });
 };
 
+export const commentPost = async (
+  postId: string,
+  comment: CommentInterface
+) => {
+  const postDocumentRef = doc(firestore, "posts", postId);
+
+  await updateDoc(postDocumentRef, {
+    comment: arrayUnion(comment),
+  });
+};
+
 export const getPosts = (
   setAllPosts: (arr: returnedPostDetailsInterface[]) => void
 ) => {
@@ -72,6 +87,7 @@ export const getPosts = (
           postedAt: doc.data().postedAt,
           author: doc.data().author,
           likes: doc.data().likes,
+          comment: doc.data().comment,
         };
       })
     );
