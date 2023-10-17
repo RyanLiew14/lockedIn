@@ -63,6 +63,18 @@ export const unlikePost = async (postId: string, userId: string) => {
   });
 };
 
+export const likeComment = async (
+  commentId: string,
+  userId: string,
+  postId: string
+) => {
+  const commentDocumentRef = doc(firestore, "posts", postId);
+
+  await updateDoc(commentDocumentRef, {
+    likes: arrayUnion(userId),
+  });
+};
+
 export const commentPost = async (
   postId: string,
   comment: CommentInterface

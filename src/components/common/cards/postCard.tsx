@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  likeComment,
   likePost,
   returnedPostDetailsInterface,
   unlikePost,
@@ -81,6 +82,43 @@ export default function Post({
                 </div>
               </div>
               <div className="mt-6 text-sm">{comment.comment}</div>
+              <div className="flex flex-row w-full text-xs mt-2">
+                {comment.likes?.includes(localStorage.getItem("id") ?? "") ? (
+                  <button
+                    onClick={() => {
+                      unlikePost(id, localStorage.getItem("id") ?? "");
+                    }}
+                    className="rounded-lg p-1 flex flex-row items-center gap-1 text-teal-500 hover:text-white"
+                  >
+                    <BsHandThumbsUp />
+                    Like
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      likeComment(
+                        comment.id,
+                        localStorage.getItem("id") ?? "",
+                        id
+                      );
+                    }}
+                    className="rounded-lg p-1 flex flex-row items-center gap-1 hover:text-teal-500"
+                  >
+                    <BsHandThumbsUp />
+                    Like
+                  </button>
+                )}
+
+                <button
+                  onClick={() => {
+                    setCommentModalOpen(true);
+                  }}
+                  className="rounded-lg p-1 flex flex-row items-center gap-1 hover:text-teal-500"
+                >
+                  <BiCommentDots />
+                  Comment
+                </button>
+              </div>
             </div>
           ))}
         </div>

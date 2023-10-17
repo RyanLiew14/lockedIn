@@ -1,6 +1,7 @@
 import { Modal } from "antd";
 import React, { useState } from "react";
 import { AuthorInterface, commentPost } from "../../../api/firestoreAPI";
+import { v4 } from "uuid";
 
 interface CommentPostModalInterface {
   modalOpenState: boolean;
@@ -10,6 +11,7 @@ interface CommentPostModalInterface {
 }
 
 export interface CommentInterface {
+  id: string;
   author: AuthorInterface;
   comment: string;
   likes: string[];
@@ -23,6 +25,7 @@ export default function CommentPostModal({
   postId,
 }: CommentPostModalInterface) {
   const [commentState, setCommentState] = useState<CommentInterface>({
+    id: "",
     author: author,
     comment: "",
     likes: [],
@@ -52,7 +55,11 @@ export default function CommentPostModal({
           className="text-gray-600 bg-transparent w-full outline-none rounded-lg"
           placeholder={"What do you want to talk about?"}
           onChange={(event) => {
-            setCommentState({ ...commentState, comment: event.target.value });
+            setCommentState({
+              ...commentState,
+              id: v4(),
+              comment: event.target.value,
+            });
           }}
           value={commentState?.comment}
         ></textarea>
