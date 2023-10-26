@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import {
-  likeComment,
+  deleteComment,
   likePost,
   returnedPostDetailsInterface,
   unlikePost,
 } from "../../../api/firestoreAPI";
 import moment from "moment";
-import { BsFillPersonFill, BsHandThumbsUp } from "react-icons/bs";
+import { BsFillPersonFill, BsHandThumbsUp, BsX } from "react-icons/bs";
 import { BiCommentDots } from "react-icons/bi";
 import CommentPostModal from "../modal/commentPostModal";
 
@@ -58,7 +58,18 @@ export default function Post({
 
         <div className="mt-4 w-full">
           {comment?.map((comment) => (
-            <div className="flex flex-col bg-gray-800 rounded-md mb-2 p-2">
+            <div className="relative flex flex-col bg-gray-800 rounded-md mb-2 p-2">
+              {localStorage.getItem("userEmail") === comment.author.email && (
+                <div className="absolute right-0 top-0">
+                  <BsX
+                    className="hover: cursor-pointer"
+                    onClick={() => {
+                      deleteComment(id, comment);
+                    }}
+                  ></BsX>
+                </div>
+              )}
+
               <div className="flex flex-row gap-2">
                 <div className="h-full rounded-full overflow-hidden flex border-2 border-teal-500">
                   {comment.author.imageLink ? (
@@ -82,7 +93,7 @@ export default function Post({
                 </div>
               </div>
               <div className="mt-6 text-sm">{comment.comment}</div>
-              <div className="flex flex-row w-full text-xs mt-2">
+              {/* <div className="flex flex-row w-full text-xs mt-2">
                 {comment.likes?.includes(localStorage.getItem("id") ?? "") ? (
                   <button
                     onClick={() => {
@@ -118,7 +129,7 @@ export default function Post({
                   <BiCommentDots />
                   Comment
                 </button>
-              </div>
+              </div> */}
             </div>
           ))}
         </div>

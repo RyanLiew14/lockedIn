@@ -1,5 +1,5 @@
 import { postDetailsInterface } from "../components/common/modal/startPostModal";
-import { firestore, storage } from "../firebaseConfig";
+import { firestore } from "../firebaseConfig";
 import {
   addDoc,
   onSnapshot,
@@ -12,7 +12,6 @@ import {
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { AchievementInterface } from "../components/common/cards/achievementsCard";
-import { ref } from "firebase/storage";
 import { CareerInterface } from "../components/common/cards/experienceCard";
 import { CommentInterface } from "../components/common/modal/commentPostModal";
 
@@ -63,17 +62,28 @@ export const unlikePost = async (postId: string, userId: string) => {
   });
 };
 
-export const likeComment = async (
-  commentId: string,
-  userId: string,
-  postId: string
+export const deleteComment = async (
+  postId: string,
+  comment: CommentInterface
 ) => {
-  const commentDocumentRef = doc(firestore, "posts", postId);
+  const postDocumentRef = doc(firestore, "posts", postId);
 
-  await updateDoc(commentDocumentRef, {
-    likes: arrayUnion(userId),
+  await updateDoc(postDocumentRef, {
+    comment: arrayRemove(comment),
   });
 };
+
+// export const likeComment = async (
+//   commentId: string,
+//   userId: string,
+//   postId: string
+// ) => {
+//   const commentDocumentRef = doc(firestore, "posts", postId);
+
+//   await updateDoc(commentDocumentRef, {
+//     likes: arrayUnion(userId),
+//   });
+// };
 
 export const commentPost = async (
   postId: string,

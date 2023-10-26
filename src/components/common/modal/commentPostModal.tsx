@@ -47,6 +47,7 @@ export default function CommentPostModal({
         okText={"Comment"}
         onOk={() => {
           commentPost(postId, commentState);
+          setCommentState({ ...commentState, comment: "" });
           setModalOpenState(false);
         }}
         onCancel={() => setModalOpenState(false)}
