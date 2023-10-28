@@ -5,6 +5,7 @@ import Home from "../pages/home";
 import Profile from "../pages/profile";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Network from "../pages/network";
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +41,15 @@ export const router = createBrowserRouter([
       <>
         <ToastContainer></ToastContainer>
         <Profile></Profile>
+      </>
+    ),
+  },
+  {
+    path: "/network",
+    element: (
+      <>
+        <ToastContainer></ToastContainer>
+        <Network></Network>
       </>
     ),
   },

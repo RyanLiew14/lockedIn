@@ -274,3 +274,36 @@ export const getUserById = (
     });
   });
 };
+
+export interface AllUserInterface {
+  id: string;
+  email: string | null | undefined;
+  firstName: string | null | undefined;
+  lastName: string | null | undefined;
+  location: string | null | undefined;
+  headline: string | null | undefined;
+  alias: string | null | undefined;
+  imageLink: string;
+}
+
+export const getAllUsers = async (
+  setAllUsers: (arr: AllUserInterface[]) => void
+) => {
+  onSnapshot(dbRefUsers, (response) => {
+    setAllUsers(
+      response.docs.map((doc) => {
+        return {
+          ...doc.data(),
+          id: doc.id,
+          email: doc.data().email,
+          firstName: doc.data().firstName,
+          lastName: doc.data().lastName,
+          location: doc.data().location,
+          headline: doc.data().headline,
+          alias: doc.data().alias,
+          imageLink: doc.data().imageLink,
+        };
+      })
+    );
+  });
+};
