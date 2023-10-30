@@ -221,6 +221,9 @@ export interface getUserInterface {
       ]
     | null
     | undefined;
+  incomingInvitation: string[] | null | undefined;
+  outgoingInvitation: string[] | null | undefined;
+  connections: string[] | null | undefined;
 }
 
 export const getUserByEmail = (
@@ -242,6 +245,9 @@ export const getUserByEmail = (
           imageLink: doc.data().imageLink,
           videoUrl: doc.data().videoUrl,
           career: doc.data().career,
+          incomingInvitation: doc.data().incomingInvitation,
+          outgoingInvitation: doc.data().outgoingInvitation,
+          connections: doc.data().connections,
           ...doc.data(),
         });
       }
@@ -268,6 +274,9 @@ export const getUserById = (
           imageLink: doc.data().imageLink,
           videoUrl: doc.data().videoUrl,
           career: doc.data().career,
+          incomingInvitation: doc.data().incomingInvitation,
+          outgoingInvitation: doc.data().outgoingInvitation,
+          connections: doc.data().connections,
           ...doc.data(),
         });
       }
@@ -284,6 +293,9 @@ export interface AllUserInterface {
   headline: string | null | undefined;
   alias: string | null | undefined;
   imageLink: string;
+  incomingInvitation: string[] | null | undefined;
+  outgoingInvitation: string[] | null | undefined;
+  connections: string[] | null | undefined;
 }
 
 export const getAllUsers = async (
@@ -301,8 +313,29 @@ export const getAllUsers = async (
           headline: doc.data().headline,
           alias: doc.data().alias,
           imageLink: doc.data().imageLink,
+          incomingInvitation: doc.data().incomingInvitation,
+          outgoingInvitation: doc.data().outgoingInvitation,
+          connections: doc.data().connections,
         };
       })
     );
   });
+};
+
+export const sendConnectionInvite = async (
+  senderId: string,
+  receiverId: string
+) => {
+  const senderDocRef = doc(firestore, "users", senderId);
+  const receiverDocRef = doc(firestore, "users", receiverId);
+
+  await updateDoc(receiverDocRef, {
+    incomingInvitation: senderId,
+  });
+
+  await updateDoc(senderDocRef, {
+    outgoingInvitation: receiverId,
+  });
+
+  toast.success("Invitation Sent!");
 };

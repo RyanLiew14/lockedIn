@@ -26,7 +26,9 @@ export default function NetworkComponent() {
     } else {
       setCopyAllUsers(allUsers);
     }
-  }, [searchQuery]);
+  }, [allUsers, searchQuery]);
+
+  console.log(copyAllUsers);
 
   return (
     <div className="flex flex-col space-y-4">
@@ -43,18 +45,24 @@ export default function NetworkComponent() {
       </div>
       <></>
       <div className="grid grid-cols-5 gap-2 ml-2">
-        {copyAllUsers?.map((elem) => (
-          <UserCard
-            id={elem.id}
-            alias={elem.alias}
-            firstName={elem.firstName}
-            lastName={elem.lastName}
-            imageLink={elem.imageLink}
-            headline={elem.headline}
-            location={elem.location}
-            email={elem.email}
-          ></UserCard>
-        ))}
+        {copyAllUsers?.map(
+          (elem) =>
+            elem.id !== localStorage.getItem("id") && (
+              <UserCard
+                id={elem.id}
+                alias={elem.alias}
+                firstName={elem.firstName}
+                lastName={elem.lastName}
+                imageLink={elem.imageLink}
+                headline={elem.headline}
+                location={elem.location}
+                email={elem.email}
+                incomingInvitation={elem.incomingInvitation}
+                outgoingInvitation={elem.outgoingInvitation}
+                connections={elem.connections}
+              ></UserCard>
+            )
+        )}
       </div>
     </div>
   );
