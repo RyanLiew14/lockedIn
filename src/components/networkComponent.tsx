@@ -1,21 +1,49 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Navbar from "./common/navbar/navbar";
 import { AllUserInterface, getAllUsers } from "../api/firestoreAPI";
 import UserCard from "./common/cards/userCard";
+import { AiOutlineSearch } from "react-icons/ai";
 
 export default function NetworkComponent() {
   const [allUsers, setAllUsers] = useState<AllUserInterface[]>();
+  const [copyAllUsers, setCopyAllUsers] = useState<AllUserInterface[]>();
+  const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(() => {
+  useMemo(() => {
     getAllUsers(setAllUsers);
   }, []);
 
-  console.log(allUsers);
+  useEffect(() => {
+    if (searchQuery !== "") {
+      setCopyAllUsers(
+        allUsers?.filter(
+          (elem) =>
+            elem.firstName?.includes(searchQuery) ||
+            elem.lastName?.includes(searchQuery) ||
+            elem.alias?.includes(searchQuery)
+        )
+      );
+    } else {
+      setCopyAllUsers(allUsers);
+    }
+  }, [searchQuery]);
+
   return (
     <div className="flex flex-col space-y-4">
       <Navbar></Navbar>
+      <div className="flex flex-row gap-4 items-center">
+        <AiOutlineSearch size={25}></AiOutlineSearch>
+        <input
+          className="p-1 w-48 rounded-md text-black"
+          placeholder="search"
+          onChange={(event) => {
+            setSearchQuery(event?.target.value);
+          }}
+        ></input>
+      </div>
+      <></>
       <div className="grid grid-cols-5 gap-2 ml-2">
-        {allUsers?.map((elem) => (
+        {copyAllUsers?.map((elem) => (
           <UserCard
             id={elem.id}
             alias={elem.alias}
@@ -27,13 +55,6 @@ export default function NetworkComponent() {
             email={elem.email}
           ></UserCard>
         ))}
-        <p className="text-center">hi</p>
-        <p className="text-center">hi</p>
-        <p className="text-center">hi</p>
-        <p className="text-center">hi</p>
-        <p className="text-center">hi</p>
-        <p className="text-center">hi</p>
-        <p className="text-center">hi</p>
       </div>
     </div>
   );
