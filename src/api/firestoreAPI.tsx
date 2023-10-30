@@ -293,7 +293,6 @@ export const getAllUsers = async (
     setAllUsers(
       response.docs.map((doc) => {
         return {
-          ...doc.data(),
           id: doc.id,
           email: doc.data().email,
           firstName: doc.data().firstName,
