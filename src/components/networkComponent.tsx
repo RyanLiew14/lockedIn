@@ -33,36 +33,41 @@ export default function NetworkComponent() {
   return (
     <div className="flex flex-col space-y-4">
       <Navbar></Navbar>
-      <div className="flex flex-row gap-4 items-center">
-        <AiOutlineSearch size={25}></AiOutlineSearch>
-        <input
-          className="p-1 w-48 rounded-md text-black"
-          placeholder="search"
-          onChange={(event) => {
-            setSearchQuery(event?.target.value);
-          }}
-        ></input>
-      </div>
-      <></>
-      <div className="grid grid-cols-5 gap-2 ml-2">
-        {copyAllUsers?.map(
-          (elem) =>
-            elem.id !== localStorage.getItem("id") && (
-              <UserCard
-                id={elem.id}
-                alias={elem.alias}
-                firstName={elem.firstName}
-                lastName={elem.lastName}
-                imageLink={elem.imageLink}
-                headline={elem.headline}
-                location={elem.location}
-                email={elem.email}
-                incomingInvitation={elem.incomingInvitation}
-                outgoingInvitation={elem.outgoingInvitation}
-                connections={elem.connections}
-              ></UserCard>
-            )
-        )}
+      <div className="flex flex-row items-start">
+        <div className="flex flex-col">
+          <div className="flex flex-row gap-4 items-center">
+            <AiOutlineSearch size={25}></AiOutlineSearch>
+            <input
+              className="p-1 w-48 rounded-md text-black"
+              placeholder="search"
+              onChange={(event) => {
+                setSearchQuery(event?.target.value);
+              }}
+            ></input>
+          </div>
+        </div>
+
+        <></>
+        <div className="grid grid-cols-5 gap-2 ml-2">
+          {copyAllUsers?.map(
+            (elem) =>
+              elem.id !== localStorage.getItem("id") && (
+                <UserCard
+                  id={elem.id}
+                  alias={elem.alias}
+                  firstName={elem.firstName}
+                  lastName={elem.lastName}
+                  imageLink={elem.imageLink}
+                  headline={elem.headline}
+                  location={elem.location}
+                  email={elem.email}
+                  incomingInvitation={elem.incomingInvitation}
+                  outgoingInvitation={elem.outgoingInvitation}
+                  connections={elem.connections}
+                ></UserCard>
+              )
+          )}
+        </div>
       </div>
     </div>
   );
