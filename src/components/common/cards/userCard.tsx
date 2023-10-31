@@ -1,6 +1,7 @@
 import React from "react";
 import {
   AllUserInterface,
+  acceptInvite,
   sendConnectionInvite,
 } from "../../../api/firestoreAPI";
 import { AiFillCamera, AiOutlineClockCircle } from "react-icons/ai";
@@ -33,16 +34,25 @@ export default function UserCard({
       <div className="mt-2 font-sans font-semibold text-center">
         {firstName} {alias ? `"${alias}"` : ""} {lastName}
       </div>
-      <div className="font-thin text-center text-sm">{headline}</div>
+      <div className="font-thin text-center text-sm p-2">{headline}</div>
 
-      {incomingInvitation?.includes(localStorage.getItem("id") ?? "") ? (
+      {connections?.includes(localStorage.getItem("id") ?? "") ? (
+        <button
+          onClick={() => {
+            console.log("send message");
+          }}
+          className="bg-teal-500 p-1.5 rounded-md font-extralight mt-2 mb-2 hover:bg-teal-700 w-11/12"
+        >
+          Message
+        </button>
+      ) : incomingInvitation?.includes(localStorage.getItem("id") ?? "") ? (
         <div className="bg-teal-500 p-1.5 rounded-md font-extralight mt-2 mb-2 w-11/12">
           <span className="flex flex-row items-center justify-center gap-1">
             <AiOutlineClockCircle />
             Pending
           </span>
         </div>
-      ) : (
+      ) : !outgoingInvitation?.includes(localStorage.getItem("id") ?? "") ? (
         <button
           onClick={() => {
             sendConnectionInvite(localStorage.getItem("id") ?? "", id);
@@ -50,6 +60,15 @@ export default function UserCard({
           className="bg-teal-500 p-1.5 rounded-md font-extralight mt-2 mb-2 hover:bg-teal-700 w-11/12"
         >
           Connect +
+        </button>
+      ) : (
+        <button
+          onClick={() => {
+            acceptInvite(id, localStorage.getItem("id") ?? "");
+          }}
+          className="bg-teal-500 p-1.5 rounded-md font-extralight mt-2 mb-2 hover:bg-teal-700 w-11/12"
+        >
+          Accept
         </button>
       )}
     </div>

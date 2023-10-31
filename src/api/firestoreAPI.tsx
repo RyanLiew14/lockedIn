@@ -330,12 +330,29 @@ export const sendConnectionInvite = async (
   const receiverDocRef = doc(firestore, "users", receiverId);
 
   await updateDoc(receiverDocRef, {
-    incomingInvitation: senderId,
+    incomingInvitation: arrayUnion(senderId),
   });
 
   await updateDoc(senderDocRef, {
-    outgoingInvitation: receiverId,
+    outgoingInvitation: arrayUnion(receiverId),
   });
 
   toast.success("Invitation Sent!");
+};
+
+export const acceptInvite = async (senderId: string, receiverId: string) => {
+  const senderDocRef = doc(firestore, "users", senderId);
+  const receiverDocRef = doc(firestore, "users", receiverId);
+
+  await updateDoc(receiverDocRef, {
+    connections: arrayUnion(senderId),
+    incomingInvitation: arrayRemove(senderId),
+  });
+
+  await updateDoc(senderDocRef, {
+    connections: arrayUnion(receiverId),
+    outgoingInvitation: arrayRemove(receiverId),
+  });
+
+  toast.success("Request Accepted!");
 };
