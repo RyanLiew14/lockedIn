@@ -38,6 +38,7 @@ export interface returnedPostDetailsInterface {
 }
 
 export interface AuthorInterface {
+  id: string;
   firstName: string;
   lastName: string;
   email: string;

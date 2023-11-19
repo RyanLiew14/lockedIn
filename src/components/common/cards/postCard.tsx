@@ -31,21 +31,24 @@ export default function Post({
       />
       <div className="flex w-9/12 bg-white dark:bg-gray-600 items-start mt-4 flex-col rounded-md text-gray-800 dark:text-white p-2">
         <div className="flex flex-row gap-2">
-          <div className="h-full rounded-full overflow-hidden flex border-2 border-teal-500">
+          <a
+            href={`profile/${author.id}`}
+            className="h-full rounded-full overflow-hidden flex border-2 border-teal-500"
+          >
             {author.imageLink ? (
               <img className="object-cover h-10 w-10" src={author.imageLink} />
             ) : (
               <BsFillPersonFill className="h-12 w-12"></BsFillPersonFill>
             )}
-          </div>
-          <div className="flex flex-col space-y-1">
+          </a>
+          <a href={`profile/${author.id}`} className="flex flex-col space-y-1">
             <div className="font-sans font-semibold text-sm">
               {author.firstName} {"'"}
               {author.alias}
               {"'"} {author.lastName}
             </div>
             <div className="font-extralight text-xs">{author.headline}</div>
-          </div>
+          </a>
         </div>
         <div className="font-sans text-xs mt-1 font-thin text-teal-200">
           {timeStamp}

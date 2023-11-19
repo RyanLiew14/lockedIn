@@ -18,6 +18,7 @@ export interface postDetailsInterface {
   blog: string;
   postedAt: string;
   author: {
+    id: string | null | undefined;
     firstName: string | null | undefined;
     lastName: string | null | undefined;
     alias: string | null | undefined;
@@ -61,6 +62,7 @@ export default function StartPostModal({
             ...postDetails,
             postedAt: getCurrentTimeStamp("LLL"),
             author: {
+              id: localStorage.getItem("id"),
               firstName: firstName,
               lastName: lastName,
               alias: alias,
