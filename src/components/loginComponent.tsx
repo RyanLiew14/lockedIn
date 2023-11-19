@@ -1,50 +1,66 @@
-import React, { useState } from "react";
-import { LoginAPI, SignUpAPI } from "../api/AuthAPI";
+import React, { useMemo, useState } from "react";
+import { LoginAPI } from "../api/AuthAPI";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { getUserByEmail, getUserInterface } from "../api/firestoreAPI";
 
 export default function LoginComponent() {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
-  const login = () => {
-    const res = LoginAPI(credentials.email, credentials.password);
-    console.log(res);
-  };
+  const navigate = useNavigate();
 
-  const signUp = () => {
-    const res = SignUpAPI(credentials.email, credentials.password);
-    console.log(res);
+  const [user, setUserInfo] = useState<getUserInterface>();
+
+  useMemo(() => {
+    getUserByEmail(credentials.email, setUserInfo);
+  }, [credentials.email]);
+
+  const login = async () => {
+    try {
+      const res = await LoginAPI(credentials.email, credentials.password);
+      toast.success("Signed in to LockedIn");
+      localStorage.setItem("userEmail", res?.user?.email);
+      localStorage.setItem("firstName", user?.firstName ?? "");
+      localStorage.setItem("lastName", user?.lastName ?? "");
+      localStorage.setItem("alias", user?.alias ?? "");
+      localStorage.setItem("id", user?.id ?? "");
+      navigate("/home");
+    } catch (err) {
+      toast.error("Credentials do not exist");
+    }
   };
   return (
     <div>
-      <div className="flex flex-col space-y-2 mb-4">
+      <div className="flex flex-col space-y-6 mb-8 w-72 text-black">
         <input
           onChange={(event) =>
             setCredentials({ ...credentials, email: event.target.value })
           }
           placeholder="email"
-          className="p-2"
+          className="p-3"
         ></input>
         <input
           onChange={(event) =>
             setCredentials({ ...credentials, password: event.target.value })
           }
           placeholder="password"
-          className="p-2"
+          className="p-3"
           type="password"
         ></input>
       </div>
 
-      <div className="flex justify-center gap-2">
+      <div className="flex flex-col justify-center gap-2 w-72">
         <button
           onClick={login}
-          className="bg-gray-100 text-black p-2 rounded-lg"
+          className="bg-gray-100 text-black p-2 rounded-lg hover:bg-teal-500"
         >
           Log-in
         </button>
-        <button
-          onClick={signUp}
-          className="bg-gray-100 text-black p-2 rounded-lg"
-        >
-          Sign-up
-        </button>
+        <p className="flex gap-1 justify-center">
+          New to LockedIn?{" "}
+          <Link to="/register" className="hover:text-teal-500">
+            Start here
+          </Link>
+        </p>
       </div>
     </div>
   );
